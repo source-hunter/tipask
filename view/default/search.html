@@ -1,0 +1,90 @@
+<!--{template header}-->
+<div class="wrapper clearfix">
+    <div id="container">
+        <div class="srsite">
+            <!--{if $rownum}-->
+            <div class="resultinfo mt15">{$setting['site_name']}为您找到相关结果约{$rownum}个</div>
+            <!--{/if}-->
+            <!--{if $corrected_words}-->
+            <div class="resultinfo mt15">
+                您要找的是不是:
+                <!--{loop $corrected_words $correct_word}-->
+                <a href="{url question/search/$correct_word}">{$correct_word}</a>
+                <!--{/loop}-->
+            </div>
+            <!--{/if}-->
+            <div id="qa-tabcard" style="width:570px;">
+                <ul>
+                    <!--{if 1==$status}--><li class="on">全部问题</li><!--{else}--><li><a href="{url question/search/$word}">全部问题</a></li><!--{/if}-->
+                    <!--{if 2==$status}--><li class="on">已解决<!--{else}--><li><a href="{url question/search/$word/2}">已解决</a></li><!--{/if}-->
+                </ul>
+            </div>
+            <!--{if $questionlist}-->
+            <div clsss="clearfix" id="qaresult">
+                <ul class="qa-list">
+                    <!--{loop $questionlist $question}-->
+                    <li class="item">
+                        <div class="qa-i-hd">
+                            <h3><a href="{url question/view/$question['id']}" target="_blank">{$question['title']}</a><!--{if in_array($question['status'],array(2,6))}--><img title="已解决" src="{SITE_URL}css/default/solved.gif" /><!--{/if}--></h3>
+                        </div>
+                        <div class="qa-i-bd">{eval echo cutstr($question['description'],250,'...');}</div>
+                        <div class="qa-i-ft"><span class="cate"><a href="{url category/view/$question['cid']}" target="_blank" text="qaresult-cate">{$question['category_name']}</a></span> - 提问人:{if $question['hidden']}<span>匿名</span>{else}<a href="{url user/space/$question['authorid']}">{$question['author']}</a>{/if} - {$question['answers']}个回答 - 提问时间: {$question['format_time']}</div>
+                    </li>
+                    <!--{/loop}-->
+                </ul>
+            </div>
+            <!--{else}-->
+            <div id="no-result">
+                <p>抱歉，未找到和 <span>"</span><em>{$word}</em><span>"</span>相关的内容。</p>
+                <strong>建议您：</strong>
+                <ul>
+                    <li><span>检查输入是否正确</span></li>
+                    <li><span>简化查询词或尝试其他相关词</span></li>
+                </ul>
+            </div>
+            <!--{/if}-->
+
+            <!--{if $departstr}-->
+            <div class="pages">{$departstr}</div>
+            <!--{/if}-->
+            <!--{if $setting['xunsearch_open'] && !$tag}-->
+            <div class="mod-relation">
+                <div id="rs">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th class="tt" rowspan="2">相关搜索</th>
+                                <!--{loop $related_words $index $word}-->
+                                <!--{if $index<=3}-->
+                                <th><a href="{url question/search/$word}">{$word}</a></th>
+                                <td></td>
+                                <!--{/if}-->
+                                <!--{/loop}-->
+                            </tr>
+                            <tr><th><a href="{url question/search/$related_words[4]}">{$related_words[4]}</a></th><td></td><th><a href="{url question/search/$related_words[5]}">{$related_words[5]}</a></th><td></td><th><a href="{url question/search/$related_words[6]}">{$related_words[6]}</a></th><td></td><th><a href="{url question/search/$related_words[7]}">{$related_words[7]}</a></th><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--{/if}-->
+        </div>
+        <div class="hot-search">
+            <div class="hd"><h3>热门搜索</h3></div>
+            <div class="bd">
+                <ul>
+                    <!--{if $hot_words}-->
+                    <!--{loop $hot_words $hostword}-->
+                    <li><a href="{url question/search/$hostword}">{$hostword}</a></li>
+                    <!--{/loop}-->
+                    <!--{else}-->
+                    <!--{eval $wordslist = unserialize($this->setting['hot_words']);}-->
+                    <!--{loop $wordslist $hotword}-->
+                    <li><a {if $hotword['qid']}href="{url question/view/$hotword['qid']}" {else}href="{url question/search/$hotword['w']}"{/if}>{$hotword['w']}</a></li>
+                    <!--{/loop}-->    
+                    <!--{/if}-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

@@ -1,0 +1,355 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ZOL问答-最专业的IT问题解决平台-ZOL中关村在线</title>
+        <meta content="问答,笔记本问答,手机问答,摄影问答,硬件问答,数码问答" name="keywords">
+        <meta content="ZOL问答是最专业的IT问题解决平台,权威专家编辑团队在线为您解答所有IT问题。提供笔记本问答、手机问答、摄影问答、硬件问答及数码问答等IT问题解决平台,更多IT问题解决,尽在ZOL中关村在线问答" name="description">
+        <link rel="stylesheet" type="text/css" href="../css/ask.css" />
+        <script type="text/javascript" src="http://ask.zol.com.cn/front/libs/jquery-1.8.2.min.js"></script>
+        <script charset="gbk" src="http://ask.zol.com.cn/front/js/base.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="top-bar">
+            <div class="wrapper clearfix">
+                <ul class="znav">
+                    <li><a target="_blank" href="http://www.zol.com.cn">ZOL首页</a></li>
+                    <li><a target="_blank" href="http://detail.zol.com.cn">每日新品</a></li>
+                    <li><a target="_blank" href="http://bbs.zol.com.cn">论坛</a></li>
+                    <li><a target="_blank" href="http://ask.zol.com.cn">问答堂</a></li>
+                    <li class="more">
+                        <span>更多</span>
+                        <div class="more-list">
+                            <a target="_blank" href="http://sjbbs.zol.com.cn">手机论坛</a>
+                            <a target="_blank" href="http://nbbbs.zol.com.cn">笔记本论坛</a>
+                            <a target="_blank" href="http://dcbbs.zol.com.cn">摄影论坛</a>
+                            <a target="_blank" href="http://diybbs.zol.com.cn">硬件论坛</a>
+                            <a target="_blank" href="http://gamebbs.zol.com.cn">游戏论坛</a>
+                            <a target="_blank" href="http://softbbs.zol.com.cn">软件论坛</a>
+                            <a target="_blank" href="http://gpsbbs.zol.com.cn">GPS论坛</a>
+                            <a target="_blank" href="http://techbbs.zol.com.cn">技术论坛</a>
+                            <a target="_blank" href="http://oabbs.zol.com.cn">办公论坛</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pub-bbs-top-inner">
+                    <ul class="pub-bbs-login">
+                        <li class="pub-user-bar"><a target="_blank" href="http://my.zol.com.cn/sdf_sky/">sdf_sky</a></li>
+                        <li onmouseout="__moreh('pubMyBbs')" onmouseover="__mores('pubMyBbs')" id="pubMyBbs" class="pub-menu">
+                            <span class="ismore"><a target="_blank" href="http://my.zol.com.cn/mybbs/sdf_sky/">我的论坛</a><i class="ar-ico"></i></span>
+                            <div id="pubMyBbsDetailNotice" class="pub-more-list">
+                                <a target="_blank" href="http://my.zol.com.cn/mybbs/sdf_sky/">我的帖子</a> 
+                                <a target="_blank" href="http://my.zol.com.cn/app/app.php?aid=6&amp;url=index.php&amp;userid=sdf_sky&amp;c=collection&amp;m=my">我的收藏</a> 
+                                <a target="_blank" href="http://blog.zol.com.cn/sdf_sky/">我的博客</a> 
+                                <a target="_blank" href="http://ask.zol.com.cn/me/">我的问答</a>
+                            </div>
+                        </li>
+                        <li onmouseout="__moreh('pubMessage')" onmouseover="__mores('pubMessage')" id="pubMessage" class="pub-menu">
+                            <!-- 如果没有短消息的话 msg-ico 后面有个 msg-null -->
+                            <span class="ismore"><a target="_self" href="http://my.zol.com.cn/message.php" class="msg-ico msg-null" id="messageSpanA">收件箱</a><i class="ar-ico"></i></span>
+                            <div id="pubMessageDetailNotice" class="pub-more-list pub-msg"><a onclick="msgClear();" target="_blank" href="http://my.zol.com.cn/message/private.php">私聊消息</a><a onclick="msgClear();" target="_blank" href="http://my.zol.com.cn/message/invite.php">邀请消息</a><a onclick="msgClear();" target="_blank" href="http://my.zol.com.cn/message/notice.php">通知消息</a><a onclick="msgClear();" target="_blank" href="http://my.zol.com.cn/remind.php">提醒消息</a></div>
+                        </li>
+                        <li onmouseout="__moreh('pubFeed')" onmouseover="__mores('pubFeed')" id="pubFeed" class="pub-menu">
+                            <span class="ismore"><a target="_self" href="http://my.zol.com.cn/follow.php">关注</a><i class="ar-ico"></i></span>
+                            <div id="pubFeedDetailNotice" class="pub-more-list pub-follow"><a onclick="msgClear();" target="_blank" href="http://my.zol.com.cn/follow.php">新动态</a><a onclick="msgClear();" target="_blank" href="http://my.zol.com.cn/my_follower.php">新粉丝</a></div>
+                        </li>
+                        <li onmouseout="__moreh('pubUser')" onmouseover="__mores('pubUser')" id="pubUser" class="pub-menu">
+                            <span class="ismore"><a target="_blank" href="http://my.zol.com.cn/sdf_sky/settings/">账号</a><i class="ar-ico"></i></span>
+                            <div id="pubUserDetailNotice" class="pub-more-list">
+                                <a target="_blank" href="http://my.zol.com.cn/info_base.php">修改资料</a> 
+                                <a target="_blank" href="http://my.zol.com.cn/info_pic.php">更改头像</a> 
+                                <a target="_blank" href="http://my.zol.com.cn/change_pwd.php">修改密码</a> 
+                                <a target="_blank" href="http://my.zol.com.cn/verify/index.php">申请认证</a> 
+                                <a target="_self" href="http://service.zol.com.cn/user/login.php?type=quit" class="pub-logout">退出</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <script type="text/javascript" language="JavaScript"> 
+                    function __mores(linkId){
+                        var divObj = document.getElementById(linkId+'DetailNotice');
+                        divObj.style.width = divObj.offsetWidth+"px";
+                        document.getElementById(linkId).className = 'pub-menu pub-more-on';
+                        if ((linkId == 'pubMessage' || linkId == 'pubFeed' || linkId == 'pubMyBbs' || linkId == 'pubUser') &amp;&amp; document.getElementById('zol-follow-api')) {
+                            document.getElementById('zol-follow-api').style.display='none';
+                        }
+                    }
+                    function __moreh(linkId){
+                        document.getElementById(linkId).className = 'pub-menu';
+                        var divObj = document.getElementById(linkId+'DetailNotice');
+                        divObj.style.width = 'auto';
+                        if ((linkId == 'pubMessage' || linkId == 'pubFeed' || linkId == 'pubMyBbs' || linkId == 'pubUser') &amp;&amp; document.getElementById('zol-follow-api')) {
+                            document.getElementById('zol-follow-api').style.display='';
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="header clearfix">
+            <div class="logo">
+                <a href="/">ZOL问答</a>
+                <p>中国最大的IT问答知识库</p>
+            </div>
+            <div class="searchbox">
+                <form method="get" action="/new/search.php">
+                    <input type="text" lang="zh-CN" onclick="JavaScript:{this.style.color='#333';}" value="" name="kword" class="searchtext" id="searchInput" x-webkit-grammar="builtin:translate" x-webkit-speech="">
+                    <input type="submit" value="搜索答案" class="searchbtn">
+                    <a class="askbtn" onclick="window.location.href='/new/add.php?title='+$('#searchInput').val();" href="###">提问题</a>
+                </form>
+            </div>
+        </div>
+
+        <div class="navbox">
+            <div class="myaskmod">
+                <div class="ask-1"><a target="_blank" href="/me_ask/">我的提问</a></div>
+                <div class="ask-2"><a target="_blank" href="/me_reply/">我的回答</a></div>
+            </div>
+            <ul class="clearfix">
+                <li><a href="/">首页</a></li>
+                <li><a href="/expert/">专家编辑团</a></li>
+                <li class="cur"><span>问答达人</span></li>
+                <li><a href="/tag/">分类标签</a></li>
+            </ul>
+        </div><div class="breadcrumb-nav"><a class="first" href="/">问答堂</a>&gt;<span>问答达人</span></div>
+
+        <div class="wrapper clearfix">
+            <div class="content-left">
+                <div class="modbox">
+                    <div class="title">最火达人</div>
+                    <ul class="daren-list clearfix">
+                        <li>
+                            <a class="pic" title="supermustang" target="_blank" href="/me/supermustang/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74578/100/74577393_100.jpg" alt=""></a>
+                            <a class="name" title="supermustang" target="_blank" href="/me/supermustang/">supermustang</a>
+                            <span>LV.7</span></li>
+                        <li>
+                            <a class="pic" title="疯狂的制帽匠" target="_blank" href="/me/hellozol2011/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74173/100/74172976_100.jpg" alt=""></a>
+                            <a class="name" title="疯狂的制帽匠" target="_blank" href="/me/hellozol2011/">疯狂的制帽匠</a>
+                            <span>LV.7</span></li>
+                        <li>
+                            <a class="pic" title="alaxiba" target="_blank" href="/me/alaxiba/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74960/100/74959289_100.jpg" alt=""></a>
+                            <a class="name" title="alaxiba" target="_blank" href="/me/alaxiba/">alaxiba</a>
+                            <span>LV.6</span></li>
+                        <li>
+                            <a class="pic" title="天国的吸萌" target="_blank" href="/me/cuiyunnan2011/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74174/100/74173282_100.jpg" alt=""></a>
+                            <a class="name" title="天国的吸萌" target="_blank" href="/me/cuiyunnan2011/">天国的吸萌</a>
+                            <span>LV.3</span></li>
+                        <li>
+                            <a class="pic" title="莱茵哈特" target="_blank" href="/me/raychaw/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/6505/100/6504389_100.jpg" alt=""></a>
+                            <a class="name" title="莱茵哈特" target="_blank" href="/me/raychaw/">莱茵哈特</a>
+                            <span>LV.3</span></li>
+                        <li>
+                            <a class="pic" title="任天糖糖糖" target="_blank" href="/me/aiyouwoqu3/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75043/100/75042285_100.jpg" alt=""></a>
+                            <a class="name" title="任天糖糖糖" target="_blank" href="/me/aiyouwoqu3/">任天糖糖糖</a>
+                            <span>LV.2</span></li>
+                    </ul>
+                </div>
+
+                <div class="modbox mt10">
+                    <div class="title">手机达人</div>
+                    <ul class="daren-list clearfix">
+                        <li>
+                            <a class="pic" title="supermustang" target="_blank" href="/me/supermustang/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74578/100/74577393_100.jpg" alt=""></a>
+                            <a class="name" title="supermustang" target="_blank" href="/me/supermustang/">supermustang</a>
+                            <span>LV.7</span></li>
+                        <li>
+                            <a class="pic" title="akklove" target="_blank" href="/me/akklove/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74588/100/74587495_100.jpg" alt=""></a>
+                            <a class="name" title="akklove" target="_blank" href="/me/akklove/">akklove</a>
+                            <span>LV.1</span></li>
+                        <li>
+                            <a class="pic" title="harleydavidson" target="_blank" href="/me/harleydavidson/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75048/100/75047619_100.jpg" alt=""></a>
+                            <a class="name" title="harleydavidson" target="_blank" href="/me/harleydavidson/">harleydavidson</a>
+                            <span>LV.1</span></li>
+                        <li>
+                            <a class="pic" title="zol电子罗盘" target="_blank" href="/me/optimus945/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75043/100/75042288_100.jpg" alt=""></a>
+                            <a class="name" title="zol电子罗盘" target="_blank" href="/me/optimus945/">zol电子罗盘</a>
+                            <span>LV.1</span></li>
+                        <li>
+                            <a class="pic" title="大黄蜂RS" target="_blank" href="/me/yellowcamaro/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75043/100/75042287_100.jpg" alt=""></a>
+                            <a class="name" title="大黄蜂RS" target="_blank" href="/me/yellowcamaro/">大黄蜂RS</a>
+                            <span>LV.1</span></li>
+                        <li>
+                            <a class="pic" title="低音控zol" target="_blank" href="/me/lovekosspp/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74588/100/74587488_100.jpg" alt=""></a>
+                            <a class="name" title="低音控zol" target="_blank" href="/me/lovekosspp/">低音控zol</a>
+                            <span>LV.1</span></li>
+                    </ul>
+                </div>
+
+                <div class="modbox mt10">
+                    <div class="title">数码达人</div>
+                    <ul class="daren-list clearfix">
+                        <li>
+                            <a class="pic" title="孙悟空跟任天堂" target="_blank" href="/me/sukgrtt/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74955/100/74954256_100.jpg" alt=""></a>
+                            <a class="name" title="孙悟空跟任天堂" target="_blank" href="/me/sukgrtt/">孙悟空跟任天堂</a>
+                            <span>LV.2</span></li>
+                        <li>
+                            <a class="pic" title="alaxiba" target="_blank" href="/me/alaxiba/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74960/100/74959289_100.jpg" alt=""></a>
+                            <a class="name" title="alaxiba" target="_blank" href="/me/alaxiba/">alaxiba</a>
+                            <span>LV.6</span></li>
+                        <li>
+                            <a class="pic" title="klszamida" target="_blank" href="/me/klszamida/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75050/100/75049641_100.jpg" alt=""></a>
+                            <a class="name" title="klszamida" target="_blank" href="/me/klszamida/">klszamida</a>
+                            <span>LV.1</span></li>
+                        <li>
+                            <a class="pic" title="kanglangsangzang" target="_blank" href="/me/kanglangsangzang/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75048/100/75047620_100.jpg" alt=""></a>
+                            <a class="name" title="kanglangsangzang" target="_blank" href="/me/kanglangsangzang/">kanglangsangzang</a>
+                            <span>LV.2</span></li>
+                        <li>
+                            <a class="pic" title="小胖子加强版" target="_blank" href="/me/aiyouwoqu2/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75043/100/75042303_100.jpg" alt=""></a>
+                            <a class="name" title="小胖子加强版" target="_blank" href="/me/aiyouwoqu2/">小胖子加强版</a>
+                            <span>LV.2</span></li>
+                        <li>
+                            <a class="pic" title="任天糖糖糖" target="_blank" href="/me/aiyouwoqu3/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75043/100/75042285_100.jpg" alt=""></a>
+                            <a class="name" title="任天糖糖糖" target="_blank" href="/me/aiyouwoqu3/">任天糖糖糖</a>
+                            <span>LV.2</span></li>
+                    </ul>
+                </div>
+
+                <div class="modbox mt10">
+                    <div class="title">笔记本达人</div>
+                    <ul class="daren-list clearfix">
+                        <li>
+                            <a class="pic" title="巡礼者" target="_blank" href="/me/cuiyunnan/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/74173/100/74172930_100.jpg" alt=""></a>
+                            <a class="name" title="巡礼者" target="_blank" href="/me/cuiyunnan/">巡礼者</a>
+                            <span>LV.1</span></li>
+                        <li>
+                            <a class="pic" title="loveios" target="_blank" href="/me/loveios/">
+                                <img width="100" height="100" src="http://8.zol-img.com.cn/bbs/user_photo/75048/100/75047612_100.jpg" alt=""></a>
+                            <a class="name" title="loveios" target="_blank" href="/me/loveios/">loveios</a>
+                            <span>LV.2</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="aside-right">
+                <div class="modbox">
+                    <!-- 一周经验飙升榜 -->
+                    <div class="title">一周经验飙升榜</div>
+                    <ul class="weekbrand-list">
+                        <li class="first">
+                            <em class="n1">1</em>
+                            <a class="pic" title="疯狂的制帽匠" target="_blank" href="/me/hellozol2011/"><img width="50" height="50" alt="疯狂的制帽匠" src="http://8.zol-img.com.cn/bbs/user_photo/74173/50/74172976_50.jpg"></a>	    <h3><a title="疯狂的制帽匠" target="_blank" href="/me/hellozol2011/">疯狂的制帽匠</a></h3>
+                            <span><a target="_blank" href="/me_reply/hellozol2011/">7656</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/hellozol2011/">442</a>提问</span></li>
+                        <li class="first">
+                            <em class="n1">2</em>
+                            <a class="pic" title="supermustang" target="_blank" href="/me/supermustang/"><img width="50" height="50" alt="supermustang" src="http://8.zol-img.com.cn/bbs/user_photo/74578/50/74577393_50.jpg"></a>	    <h3><a title="supermustang" target="_blank" href="/me/supermustang/">supermustang</a></h3>
+                            <span><a target="_blank" href="/me_reply/supermustang/">7560</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/supermustang/">487</a>提问</span></li>
+                        <li class="first">
+                            <em class="n1">3</em>
+                            <a class="pic" title="alaxiba" target="_blank" href="/me/alaxiba/"><img width="50" height="50" alt="alaxiba" src="http://8.zol-img.com.cn/bbs/user_photo/74960/50/74959289_50.jpg"></a>	    <h3><a title="alaxiba" target="_blank" href="/me/alaxiba/">alaxiba</a></h3>
+                            <span><a target="_blank" href="/me_reply/alaxiba/">2022</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/alaxiba/">582</a>提问</span></li>
+                        <li>
+                            <em class="n2">4</em>
+                            <h3><a title="老王同学" target="_blank" href="/me/alaxiba2/">老王同学</a></h3>
+                            <span><a target="_blank" href="/me_reply/alaxiba2/">1</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/alaxiba2/">64</a>提问</span></li>
+                        <li>
+                            <em class="n2">5</em>
+                            <h3><a title="天国的吸萌" target="_blank" href="/me/cuiyunnan2011/">天国的吸萌</a></h3>
+                            <span><a target="_blank" href="/me_reply/cuiyunnan2011/">0</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/cuiyunnan2011/">1</a>提问</span></li>
+                        <li>
+                            <em class="n2">6</em>
+                            <h3><a title="阿拉希巴" target="_blank" href="/me/alaxiba3/">阿拉希巴</a></h3>
+                            <span><a target="_blank" href="/me_reply/alaxiba3/">1</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/alaxiba3/">55</a>提问</span></li>
+                        <li>
+                            <em class="n2">7</em>
+                            <h3><a title="莱茵哈特" target="_blank" href="/me/raychaw/">莱茵哈特</a></h3>
+                            <span><a target="_blank" href="/me_reply/raychaw/">2436</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/raychaw/">489</a>提问</span></li>
+                        <li>
+                            <em class="n2">8</em>
+                            <h3><a title="oczhkp621016" target="_blank" href="/me/oczhkp621016/">oczhkp6210</a></h3>
+                            <span><a target="_blank" href="/me_reply/oczhkp621016/">0</a>回答</span>
+                            <span><a target="_blank" href="/me_ask/oczhkp621016/">0</a>提问</span></li>
+                    </ul>
+                </div>	
+
+                <div class="modbox mt10">
+                    <!-- 达人总排行 -->
+
+                    <div class="title">达人总排行</div>
+                    <ul class="weekbrand-list">
+                        <li class="first">
+                            <em class="n1">1</em>
+                            <a class="pic" title="supermustang" target="_blank" href="/me/supermustang/"><img width="50" height="50" alt="supermustang" src="http://8.zol-img.com.cn/bbs/user_photo/74578/50/74577393_50.jpg"></a>		    <h3><a title="supermustang" target="_blank" href="/me/supermustang/">supermustang</a></h3>
+                            <span><a href="/me_reply/supermustang/">0</a>回答</span><span><a href="/me_ask/supermustang/">487</a>提问</span></li>
+                        <li class="first">
+                            <em class="n1">2</em>
+                            <a class="pic" title="" target="_blank" href="/me//"><img width="50" height="50" alt="" src=""></a>		    <h3><a title="" target="_blank" href="/me//"></a></h3>
+                            <span><a href="/me_reply//">0</a>回答</span><span><a href="/me_ask//">0</a>提问</span></li>
+                        <li class="first">
+                            <em class="n1">3</em>
+                            <a class="pic" title="疯狂的制帽匠" target="_blank" href="/me/hellozol2011/"><img width="50" height="50" alt="疯狂的制帽匠" src="http://8.zol-img.com.cn/bbs/user_photo/74173/50/74172976_50.jpg"></a>		    <h3><a title="疯狂的制帽匠" target="_blank" href="/me/hellozol2011/">疯狂的制帽匠</a></h3>
+                            <span><a href="/me_reply/hellozol2011/">0</a>回答</span><span><a href="/me_ask/hellozol2011/">442</a>提问</span></li>
+                        <li>
+                            <em class="n2">4</em>
+                            <h3><a title="alaxiba" target="_blank" href="/me/alaxiba/">alaxiba</a></h3>
+                            <span><a href="/me_reply/alaxiba/">0</a>回答</span><span><a href="/me_ask/alaxiba/">582</a>提问</span></li>
+                        <li>
+                            <em class="n2">5</em>
+                            <h3><a title="天国的吸萌" target="_blank" href="/me/cuiyunnan2011/">天国的吸萌</a></h3>
+                            <span><a href="/me_reply/cuiyunnan2011/">0</a>回答</span><span><a href="/me_ask/cuiyunnan2011/">1</a>提问</span></li>
+                        <li>
+                            <em class="n2">6</em>
+                            <h3><a title="莱茵哈特" target="_blank" href="/me/raychaw/">莱茵哈特</a></h3>
+                            <span><a href="/me_reply/raychaw/">0</a>回答</span><span><a href="/me_ask/raychaw/">489</a>提问</span></li>
+                        <li>
+                            <em class="n2">7</em>
+                            <h3><a title="任天糖糖糖" target="_blank" href="/me/aiyouwoqu3/">任天糖糖糖</a></h3>
+                            <span><a href="/me_reply/aiyouwoqu3/">0</a>回答</span><span><a href="/me_ask/aiyouwoqu3/">68</a>提问</span></li>
+                        <li>
+                            <em class="n2">8</em>
+                            <h3><a title="老王同学" target="_blank" href="/me/alaxiba2/">老王同学</a></h3>
+                            <span><a href="/me_reply/alaxiba2/">0</a>回答</span><span><a href="/me_ask/alaxiba2/">64</a>提问</span></li>
+                        <li>
+                            <em class="n2">9</em>
+                            <h3><a title="小胖子加强版" target="_blank" href="/me/aiyouwoqu2/">小胖子加强版</a></h3>
+                            <span><a href="/me_reply/aiyouwoqu2/">0</a>回答</span><span><a href="/me_ask/aiyouwoqu2/">52</a>提问</span></li>
+                        <li>
+                            <em class="n2">10</em>
+                            <h3><a title="阿拉希巴" target="_blank" href="/me/alaxiba3/">阿拉希巴</a></h3>
+                            <span><a href="/me_reply/alaxiba3/">0</a>回答</span><span><a href="/me_ask/alaxiba3/">55</a>提问</span></li>
+                    </ul>
+                </div>	
+            </div>
+        </div>
+        <div class="wrapper">
+            <style type="text/css">.footerw{color:#AB99BC; margin-bottom:15px; float: none; text-align:left; font-size:12px; font-family:arial; line-height:30px;padding:5px 0} .footerw span{ color:#ccc;float:right;font-family:"宋体";font-size:10px;-webkit-text-size-adjust:none;} .footerw a{color:#666; text-decoration:none; font-family:Arial; font-size:12px;} .footerw a.aboutme{ color: #F00;} .footerw a:hover{ color:#f60;} .footerw i {width:23px;height:23px;background:url("http://icon.zol-img.com.cn/public/cnet.png");float:left;}.zol-footer,.cbsi-footer{ margin:10px auto 0; border:1px solid #e1e1e1;background:none repeat scroll 0 0 #FFFFFF;float:none;clear:both}.zol-footer .more{ position: absolute; top: 18px; right: 0; width:15px; height:9px; background: url(../images/title-head.png) -131px -302px; text-indent: -9999em; }.zol-footer .more:hover{ text-decoration: none}.zol-footer-title,.zol-footer-main,.cbsi-footer-title,.cbsi-footer-main{ float: left}.zol-footer-title,.cbsi-footer-title{width: 147px;background: #f5f5f5; text-align: center; border-right: 1px solid #e1e1e1}.zol-footer-title{height: 69px;}.cbsi-footer-title{height:69px;}.zol-footer-title h3,.cbsi-footer-title h3{font: 400 14px/22px "Microsoft YaHei","SimHei"; color:#666}.zol-footer-title h3{padding:24px 0 0;}.cbsi-footer-title h3{ padding:24px 0 0;margin:0;}.zol-footer-main,.cbsi-footer-main{ padding:0 4px; width: 780px; color:#ccc}.cbsi-footer-main{ padding-top: 10px;}.zol-footer-main h3{ padding-left: 10px; font: 700 12px/22px Arial; color:#666}.zol-footer-main p,.cbsi-footer-main p{ line-height: 24px;font-size:12px;margin:0;}.zol-footer-main p a,.cbsi-footer-main p a{ padding:0 8px; color:#666; text-decoration: none}.zol-footer-main p a:hover,.cbsi-footer-main p a:hover{ text-decoration: underline; color:#f60}.cbsi_div_2011 {float:none;}</style>
+            <div class="footerw">
+                <span>
+                    <a href="#">ZOL简介</a>
+                    <a href="#">ZOL历程</a>
+                    <a href="#">招聘(1月)</a>
+                    <a href="#">品牌大全</a>
+                    <a href="#">站点地图</a>
+                    <a href="#">联系我们</a>
+                    <a href="#">RSS订阅</a>
+                    <a class="aboutme" href="#">反馈/纠错</a>
+                </span>
+                &nbsp;&copy;2013 CBS Interactive. All rights reserved. 中关村在线 版权所有.</div>
+        </div>
+    </body>
+</html>

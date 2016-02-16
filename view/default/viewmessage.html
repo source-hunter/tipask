@@ -1,0 +1,81 @@
+<!--{template header}-->
+<script type="text/javascript" src="{SITE_URL}js/editor/ueditor.config.js"></script> 
+<script type="text/javascript" src="{SITE_URL}js/editor/ueditor.all.js"></script> 
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">我的消息<span class="flright"><input type="button" value="写消息" class="normal-button" onclick="javascript:document.location = '{url message/send}'"/></span></div>            
+            <div id="qa-tabcard">
+                <ul>
+                    <li<!--{if $type=="personal"}--> class="on"<!--{/if}-->><!--{if $type=="personal"}-->私人消息<!--{else}--><a href="{url message/personal}">私人消息</a><!--{/if}--></li>
+                    <li<!--{if $type=="system"}--> class="on"<!--{/if}-->><!--{if $type=="system"}-->系统消息<!--{else}--><a href="{url message/system}">系统消息</a><!--{/if}--></li>
+                </ul>
+            </div>
+            <form name="msgform" action="{url message/remove}" method="POST" onsubmit="javascript:if (!confirm('确定删除所选消息?')) return false;">
+                <ul class="q-tabmod mt10">
+                    <!--{loop $messagelist $message}-->
+                    <li>
+                        <!--{if $message['fromuid']}-->
+                        <div class="avatar">
+                            <a href="{url user/space/$message['fromuid']}" title="supermustang" target="_blank" class="pic"><img alt="{$message['from']}" src="{$message['from_avatar']}"/></a>
+                        </div>
+                        <!--{/if}-->
+                        <div class="msgcontent">
+                            <h3>                                
+                                <!--{if $message['fromuid']==$user['uid']}-->
+                                <input type='checkbox' value="{$message['id']}" name="messageid[outbox][]"/>
+                                <a href="{url user/score}">您</a> 对 <a href="{url user/space/$message['fromuid']}">{$message['touser']}</a> 说：
+                                <!--{else}-->
+                                <input type='checkbox' value="{$message['id']}" name="messageid[inbox][]"/>
+                                <a href="{url user/space/$message['fromuid']}">{$message['from']}</a> 对 <a href="{url user/score}">您</a> 说：
+                                <!--{/if}-->
+                                {$message['subject']}
+                            </h3>
+                            <p>{$message['content']}</p>
+                            <div class="related">
+                                <div class="pv">{$message['format_time']}</div>
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </li>
+                    <!--{/loop}-->
+                    <li><div class="manage-box"><input type="checkbox"value="chkall" id="chkall" onclick="checkall('messageid');"/> 全选&nbsp;&nbsp;<input type="submit" value="删除" name="submit" class="button_2" /></div></li>
+                </ul>
+            </form>
+            <!--{if 'personal'==$type}-->
+            <ul class="q-tabmod mt10">
+                <form name="commentform" action="{url message/send}" method="POST" onsubmit="return check_form();">
+                    <li>
+                        <div class="avatar">
+                            <span class="pic"><img alt="{$user['username']}" src="{$user['avatar']}"/></span>
+                        </div>
+                        <div class="msgcontent">
+                            <script type="text/plain" id="content" name="content" style="height: 122px;"></script>
+                            <script type="text/javascript">UE.getEditor('content', UE.utils.extend({toolbars:[[{$toolbars}]]}));</script>
+                            <div class="related">
+                                <input type="text" class="code-input" id="code" name="code" onblur="check_code()">&nbsp;<span class="verifycode"><img src="{url user/code}" onclick="javascript:updatecode();" id="verifycode"></span><a href="javascript:updatecode();" class="changecode">&nbsp;换一个</a>
+                                <span id="codetip"></span>
+                                <input type="hidden" name="username" value="{$fromuser['username']}" />
+                                <input type="submit" value="提&nbsp;交" class="normal-button flright" name="submit">
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </li>
+                </form>
+            </ul>
+            <!--{/if}-->
+            <div class="pages">{$departstr}</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function check_form() {
+    if ($.trim(UE.getEditor('content').getPlainTxt()) == '') {
+        alert("消息内容不能为空!");
+        return false;
+    }
+    return true;
+}
+</script>
+<!--{template footer}-->

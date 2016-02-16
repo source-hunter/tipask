@@ -1,0 +1,41 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">我的回答</div>
+            <div id="qa-tabcard">
+                <ul>
+                    <li<!--{if $status==1}--> class="on"<!--{/if}-->><!--{if $status==1}-->未采纳<!--{else}--><a href="{url user/answer/1}">未采纳</a><!--{/if}--></li>
+                    <li<!--{if $status==2}--> class="on"<!--{/if}-->><!--{if $status==2}-->已采纳<!--{else}--><a href="{url user/answer/2}">已采纳</a><!--{/if}--></li>
+                    <li<!--{if $status==0}--> class="on"<!--{/if}-->><!--{if $status==0}-->审核中<!--{else}--><a href="{url user/answer/0}">审核中</a><!--{/if}--></li>
+                </ul>
+            </div>
+
+            <div class="bd">
+                <div class="cls-qa-table">
+                    <table>
+                        <tbody>
+                            <tr><th class="s0">标题</th><th class="s1">评论数</th><th class="s1">已采纳</th><th class="s2">时间</th></tr>
+                            <!--{loop $answerlist $answer}-->
+                            <tr>
+                                <td class="title">
+                                    <div class="tit-full">
+                                        <div class="wrap">
+                                            <a target="_blank" title="{$answer['title']}" href="{url question/view/$answer['qid']}">{eval echo cutstr($answer['title'],54)}</a>
+                                        </div>
+                                </td>
+                                <td>{$answer['comments']}</td>
+                                <td>{if $answer['adopttime']>0}<font color="green">√</font>{else}否{/if}</td>
+                                <td>{$answer['time']}</td>
+                            </tr>                   
+                            <!--{/loop}-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pages">{$departstr}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

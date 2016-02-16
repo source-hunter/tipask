@@ -1,0 +1,27 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">我关注的人</div>
+            <div id="qa-tabcard">
+                <ul>
+                    <li><a href="{url user/follower}">关注者</a></li>
+                    <li  class="on">已关注</li>
+                    <li><a href="{url user/attention/question}">关注的问题</a></li>
+                </ul>
+            </div>
+            <div class="bd">
+                <div class="cls-qa-table">
+                    <ul class="active-list clearfix">
+                        <!--{loop $attentionlist $attention}-->
+                        <li><a  target="_blank" href="{url user/space/$attention['uid']}"><img width="80" height="80" src="{$attention['avatar']}" onmouseout="pop_user_out();" onmouseover="pop_user_on(this, '{$attention['uid']}', 'image_active');"></a><a class="name" title="{$follower['follower']}" target="_blank" href="{url user/space/$attention['uid']}">{$attention['username']}</a></li>
+                        <!--{/loop}-->
+                    </ul>
+                </div>
+                <div class="pages">{$departstr}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

@@ -1,0 +1,41 @@
+{eval $setting=$this->setting;$user=$this->user;}
+<!--相关已解决-->
+<!--{if isset($userinfo)}-->
+<div class="usercard_in clearfix">
+    <div class="usercard_c1 clearfix">
+        <div class="usercard_c1_l"><a href="{url user/space/$userinfo['uid']}" class="avatar"><img src="{$userinfo['avatar']}" alt="{$userinfo['username']}"/></a></div>
+        <div class="usercard_c1_r">
+            <h2 class="tit"><a class="tx_user" href="{url user/space/$userinfo['uid']}" title="{$userinfo['username']}">{eval echo cutstr($userinfo['username'],24,'');}</a>{if $userinfo['gender']!=2}<i class="icon_{$userinfo['gender']}"></i>{/if}{if $userinfo['expert']}<i class="icon_expert" title='专家'></i>{/if} <span class="tx_id">({$userinfo_group['grouptitle']})</span>{if $userinfo['islogin']}<span class="online">在线</span>{else}<span class="offline">离线</span>{/if}</h2>
+            <!--{if $userinfo['introduction']}-->
+            <p class="info">{$userinfo['introduction']}</p>
+            <!--{/if}-->
+            <!--{if $userinfo['category']}-->
+            <p class="info">擅长:
+                <!--{loop $userinfo['category'] $category}-->
+                <i class="expert-field"><a target="_blank" href="{url category/view/$category['cid']}">{$category['categoryname']}</a></i>
+                <!--{/loop}-->
+            </p>
+            <!--{/if}-->
+            <p class="stats">{$userinfo['answers']}回答<span class="tx_line">|</span>{$userinfo['supports']}赞同<span class="tx_line">|</span>{$userinfo['credit2']}财富<span class="tx_line">|</span>{$userinfo['followers']}关注</p>
+        </div>
+    </div>
+    <div class="usercard_c2 clearfix">
+        <div class="usercard_c2_l">
+            <span class="gb_foed gb_fo1">
+                <!--{if $user['uid']!=$userinfo['uid']}-->
+                <!--{if $is_followed}-->
+                <span><input type="button" class="button_followed" value="取消关注" id="attenttouser_{$userinfo['uid']}" onclick="attentto_user({$userinfo['uid']})"/></span>
+                <!--{else}-->
+                <span><input type="button" class="button_attention" value="关注" id="attenttouser_{$userinfo['uid']}" onclick="attentto_user({$userinfo['uid']})"/></span>
+                <!--{/if}-->
+                <span><input type="button" class="button_attention" value="提问"  onclick="javascript:document.location = '{url question/add/$userinfo['uid']}'"/></span>
+                <span><input type="button" class="button_attention" value="私信"  onclick="javascript:document.location = '{url message/send/$userinfo['uid']}'"/></span>
+                <!--{/if}-->
+            </span>
+        </div>
+    </div>
+    <!--{if $userinfo['signature']}-->
+    <div class="usercard_c3 clearfix"><p class="info">{$userinfo['signature']}</p></div> 
+    <!--{/if}-->
+</div>
+<!--{/if}-->

@@ -1,0 +1,27 @@
+<div class="user-aside">
+    <div class="usermenu">
+        <div class="userbox clearfix">
+            <a class="pic" title="{$user['username']}" href="{url user/profile}"><img width="60" height="60" src="{$user['avatar']}" alt="{$user['username']}"></a>
+            <h3>{$user['username']}</h3>
+            <span>{$user['grouptitle']}</span>
+<!--            <span class="user-level">LV{$user['level']}</span>-->
+        </div>
+        <ul class="menu clearfix">
+            <li><a href="{url user/answer/1}">回答数</a>{$user['answers']}</li>
+            <li><a href="{url user/ask/1}">提问数</a>{$user['questions']}</li>
+            <li><a href="#">赞同数</a>{$user['supports']}</li>
+        </ul>
+        <ul class="user-nav">
+            <li<!--{if strstr($regular,"user/score")}--> class="on"<!--{/if}-->><!--{if strstr($regular,"user/score")}-->我的首页<!--{else}--><a href="{url user/score}">我的首页</a><!--{/if}--></li>
+            <li<!--{if in_array($regular,array('user/profile','user/uppass','user/mycategory','user/editimg'))}--> class="on"<!--{/if}-->><!--{if in_array($regular,array('user/profile','user/uppass','user/mycategory','user/editimg'))}-->个人信息<!--{else}--><a href="{url user/profile}">个人信息</a><!--{/if}--></li>
+            <li<!--{if strstr($regular,"user/recommend")}--> class="on"<!--{/if}-->><!--{if strstr($regular,"user/recommend")}-->为我推荐<!--{else}--><a href="{url user/recommend}">为我推荐</a><!--{/if}--></li>
+            <li<!--{if strstr($regular,"user/ask")}--> class="on"<!--{/if}-->><!--{if strstr($regular,"user/ask")}-->我的提问<!--{else}--><a href="{url user/ask/1}">我的提问</a><!--{/if}--></li>
+            <li<!--{if strstr($regular,"user/answer")}--> class="on"<!--{/if}-->><!--{if strstr($regular,"user/answer")}-->我的回答<!--{else}--><a href="{url user/answer/1}">我的回答</a><!--{/if}--></li>
+<!--            <li{if strstr($regular,"user/attention")} class="on"{/if}>{if strstr($regular,"user/attention")}最新动态{else}<a href="{url user/attention}">最新动态</a>{/if}</li>-->
+            <li<!--{if strstr($regular,"message")}--> class="on"<!--{/if}-->><!--{if strstr($regular,"message")}-->我的消息<!--{else}--><a href="{url message/personal}">我的消息</a><!--{/if}--></li>
+            <li<!--{if strstr("user/follower,user/attention",$regular)}--> class="on"<!--{/if}-->><!--{if strstr("user/follower,user/attention",$regular)}-->我的关注<!--{else}--><a href="{url user/follower}">我的关注</a><!--{/if}--></li>
+            <li<!--{if strstr($regular,"favorite")}--> class="on"<!--{/if}-->><!--{if strstr($regular,"favorite")}-->我的收藏<!--{else}--><a href="{url favorite/default}">我的收藏</a><!--{/if}--></li>
+            <li<!--{if strstr($regular,"user/level")}--> class="on"<!--{/if}-->><!--{if strstr($regular,"user/level")}-->我的等级<!--{else}--><a href="{url user/level}">我的等级</a><!--{/if}--></li>
+        </ul>
+    </div>
+</div>

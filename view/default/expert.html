@@ -1,0 +1,53 @@
+<!--{template header}-->
+<!--{eval $adlist = $this->fromcache("adlist");}-->
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <!--广告位1-->
+        <!--{if (isset($adlist['common']['left1']) && trim($adlist['common']['left1']))}-->
+        <div style="margin-top:10px;">{$adlist['common']['left1']}</div>
+        <!--{/if}-->
+        <div class="experts mt10">
+            <!--{loop $expertlist $expert}-->
+            <div class="expert">
+                <a class="pic" target="_blank" title="{$expert['username']}" href="{url user/space/$expert['uid']}"><img width="80" height="80" src="{$expert['avatar']}" alt="{$expert['username']}"></a>
+                <a class="name" target="_blank" title="{$expert['username']}" href="{url user/space/$expert['uid']}">{$expert['username']}</a><span>&nbsp;<!--{if $expert['introduction']}-->({$expert['introduction']})<!--{/if}--></span><input type="button" onclick="javascript:document.location = '{url question/add/$expert[uid]}'" class="button_4 flright" value="向TA求助"/>
+                <div class="general">
+                    <span>擅长领域：
+                        <!--{loop $expert['category'] $category}-->
+                        <a target="_blank" href="{url category/view/$category['cid']}">{$category['categoryname']}</a>
+                        <!--{/loop}-->
+                    </span>
+                    <span><em><a href="{url user/space_answer/$expert['uid']}">{$expert['answers']}</a></em>回答</span>
+                    <span><em>{$expert['supports']}</em>赞同</span>
+                    <p>简介：{$expert['signature']}</p>
+                    <!--{if $expert['bestanswer']}-->
+                    <h4>精选解答:</h4>
+                    <ul class="clearfix">	    		
+                        <!--{loop $expert['bestanswer'] $question}-->
+                        <li><a href="{url question/view/$question['qid']}" target='_blank' title="{$question['title']}">{eval echo cutstr($question['title'],40,'');}</a></li>
+                        <!--{/loop}-->
+                    </ul>
+                    <!--{/if}-->
+                </div>
+            </div>
+            <!--{/loop}-->
+        </div>	
+        <div class="pages">{$departstr}</div>	
+    </div>
+
+    <div class="aside-right">
+        <div class="modbox mt10">
+            <div class="title">专家最新解答</div>
+            <ul class="list">
+                <!--{loop $questionlist $question}-->
+                <li><a title="{$question['title']}" target="_blank" href="{url question/view/$question['qid']}">{eval echo cutstr($question['title'],30,'');}</a></li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <!--广告位2-->
+        <!--{if (isset($adlist['common']['right1']) && trim($adlist['common']['right1']))}-->
+        <div style="margin-top:5px;">{$adlist['common']['right1']}</div>
+        <!--{/if}-->
+    </div>
+</div>
+<!--{template footer}-->

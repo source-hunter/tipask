@@ -1,0 +1,46 @@
+<!--{template header}-->
+<script type="text/javascript" src="{SITE_URL}js/editor/ueditor.config.js"></script> 
+<script type="text/javascript" src="{SITE_URL}js/editor/ueditor.all.js"></script> 
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">发送消息<span class="flright"><a href="{url message/personal}">返回消息列表</a></span></div>
+            <div class="loginform">
+                <form  action="{url message/send}" method="post">
+                    <div class="input-bar">
+                        <h2>收件人:</h2>
+                        <input type="text" id="username" name="username" class="normal-input" value="{$sendto['username']}" />
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>主题:</h2>
+                        <input type="text" id="subject" name="subject" class="tag-input" value="" />
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>内容:</h2>
+                        <div style="float: left;margin-left:6px;">
+                            <script type="text/plain" id="content" name="content" style="height: 122px;width:500px;"></script>
+                            <script type="text/javascript">UE.getEditor('content', UE.utils.extend({toolbars:[[{$toolbars}]]}));</script>
+                        </div>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>验证码:</h2>
+                        <input type="text" class="code-input" id="code" name="code" onblur="check_code();"/><span id="codetip"></span>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="code-bar">
+                        <span class="verifycode"><img  src="{url user/code}" onclick="javascript:updatecode();" id="verifycode"></span><a class="changecode" href="javascript:updatecode();">&nbsp;看不清?</a>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="auto-login">
+                        <input type="submit" name="submit" class="normal-button" value="发&nbsp;送" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

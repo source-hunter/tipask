@@ -1,0 +1,50 @@
+<!--{template header}-->
+<div class="nav-line">
+    <a class="first" href="{SITE_URL}">{$setting['site_name']}</a>
+    &gt; <span>当前在线</span>
+</div>
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <div id="mod-answer-list" class="mod-answer-list mt10">
+            <div class="bd">
+                <div class="cls-qa-table">
+                    <table>
+                        <tbody>
+                            <tr><th class="s1">ip</th><th class="s2">用户名</th><th class="s2">时间</th></tr>
+                            <!--{loop $onlinelist $online}-->
+                            <tr>
+                                <td>{if $online['ip']}{$online['ip']}{else}未知{/if}</td>
+                                <td>{if $online['username']}<a href="{url user/space/$online['uid']}" target="_blank">{$online['username']}</a>{else}游客{/if}</td>
+                                <td>{$online['online_time']}</td>
+                            </tr>
+                            <!--{/loop}-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pages">{$departstr}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="aside-right">
+        <!-- 关注问题排行榜 -->
+        <div class="modbox mt10">
+            <div class="title">关注问题排行榜</div>
+            <ul class="right-list">
+                <!--{eval $attentionlist=$this->fromcache('attentionlist');}-->
+                <!--{loop $attentionlist $index $question}-->
+                <!--{eval $index++;}-->
+                <li>
+                    <!--{if $index<4}-->
+                    <em class="n1">{$index}</em>
+                    <!--{else}-->
+                    <em class="n2">{$index}</em>
+                    <!--{/if}-->
+                    <a  title="{$question['title']}" target="_blank" href="{url question/view/$question['id']}">{eval echo cutstr($question['title'],40,'');}</a>
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>	
+    </div>
+</div>
+<!--{template footer}-->

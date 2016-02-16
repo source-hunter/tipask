@@ -1,0 +1,70 @@
+<!--{template header}-->
+<!--{eval $adlist = $this->fromcache("adlist");}-->
+<div class="nav-line">
+    <a class="first" href="{SITE_URL}">{$setting['site_name']}</a>
+    &gt; <span>用户财富排行榜Top 100</span>
+</div>
+
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <!--广告位1-->
+        <!--{if (isset($adlist['common']['left1']) && trim($adlist['common']['left1']))}-->
+        <div style="margin-top:10px;">{$adlist['common']['left1']}</div>
+        <!--{/if}-->
+        <div style="width:720px;" id="qa-tabcard">
+            <ul>                
+                <li <!--{if $type==1}-->class="on"<!--{/if}-->><!--{if $type==1}-->本周排行<!--{else}--><a href="{url user/scorelist/1}">本周排行</a><!--{/if}--></li> 
+                <li <!--{if $type==0}-->class="on"<!--{/if}-->><!--{if $type==0}-->总排行<!--{else}--><a href="{url user/scorelist/0}">总排行</a><!--{/if}--></li> 
+            </ul>
+        </div>
+
+        <div id="mod-answer-list" class="mod-answer-list mt10">
+            <div class="bd">
+                <div class="cls-qa-table">
+                    <table>
+                        <tbody>
+                            <tr><th class="s1">排名</th><th class="s2">用户</th><th class="s1">财富</th><th class="s1">回答</th><th class="s1">被采纳</th><th class="s2">最后登录</th></tr>
+                            <!--{loop $userlist $index $user}-->
+                            <tr>
+                                <td><strong>{eval echo(++$index);}</strong></td>
+                                <td><a href="{url user/space/$user['uid']}" target="_blank">{$user['username']}</a></td>
+                                <td>{$user['credit2']}</td>
+                                <td>{$user['answers']}</td>
+                                <td>{$user['adopts']}</td>
+                                <td>{$user['lastlogin']}</td>
+                            </tr>
+                            <!--{/loop}-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pages">{$departstr}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="aside-right">
+        <!-- 关注问题排行榜 -->
+        <div class="modbox mt10">
+            <div class="title">一周热点问题</div>
+            <ul class="right-list">
+                <!--{eval $attentionlist=$this->fromcache('attentionlist');}-->
+                <!--{loop $attentionlist $index $question}-->
+                <!--{eval $index++;}-->
+                <li>
+                    <!--{if $index<4}-->
+                    <em class="n1">{$index}</em>
+                    <!--{else}-->
+                    <em class="n2">{$index}</em>
+                    <!--{/if}-->
+                    <a  title="{$question['title']}" target="_blank" href="{url question/view/$question['id']}">{eval echo cutstr($question['title'],40,'');}</a>
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <!--广告位2-->
+        <!--{if (isset($adlist['common']['right1']) && trim($adlist['common']['right1']))}-->
+        <div style="margin-top:5px;">{$adlist['common']['right1']}</div>
+        <!--{/if}-->
+    </div>
+</div>
+<!--{template footer}-->

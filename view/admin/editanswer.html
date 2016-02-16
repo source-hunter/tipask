@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+{eval $user=$this->user; $setting=$this->setting;}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Tipask's Control Panel</title>
+<meta http-equiv="Content-Type" content="text/html; charset={TIPASK_CHARSET}">
+<link media="all" type="text/css" href="css/admin/admincp.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="append">
+</div>
+<SCRIPT src="js/admin.js" type="text/javascript"></SCRIPT>
+<SCRIPT src="js/calendar.js" type="text/javascript"></SCRIPT>
+<div class="container">
+	<h3>回答信息</h3>
+	<ul class="memlist fixwidth"></ul>
+	<div class="mainbox nomargin">
+		<form name="askform" action="index.php?admin_question/editanswer{$setting['seo_suffix']}" method="post">
+						<table cellspacing="0" cellpadding="0" width="80%" border="0">
+							<tr valign="top">
+								<td class="f14" nowrap width="110">问题标题:</td>
+								<td>{$answer['title']}</td>
+							</tr>
+						</table>
+						<br>
+						<table cellspacing="0" cellpadding="0" width="80%" border="0">
+							<tr valign="top">
+								<td class="f14" nowrap width="110">回答者:</td>
+								<td>{$answer['author']}</td>
+							</tr>
+						</table>
+						<br>
+						<table cellspacing="0" cellpadding="0" width="80%" border="0">
+							<tr valign="top">
+								<td class="f14" nowrap width="110">回答内容:</td>
+								<td><textarea name="content" rows="8" cols="66">{$answer['content']}</textarea></td>
+							</tr>
+						</table>
+						<br>
+						<table cellspacing="0" cellpadding="0" width="80%" border="0">
+							<tr>
+								<td class="f14" valign="top" nowrap width="110">回答时间:</td>
+								<td class="f14" valign="top"><input type="txt" readonly name="time" id="timestart" {if isset($answer['date'])}value="{$answer['date']}"{/if}/><br /><span id="hidtip">可以修改提问时间</span></td>
+							</tr>
+						</table>
+						<br>
+						<table cellspacing="0" cellpadding="0" width="80%" border="0">
+							<tr>
+								<td class="f14" width="110">&nbsp;</td>
+								<td valign="top">
+									<input type="hidden" value="{$aid}" name="aid">
+									<input class="btn" type="submit" value="&nbsp;提交&nbsp;" name="submit">
+								</td>
+							</tr>
+						</table>
+		</form>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript">
+	var sortobj=eval('($category_js)');
+	var g_ClassLevel1;
+	var g_ClassLevel2;
+	var g_ClassLevel3;
+	var class_level_1=sortobj.category1;
+	var class_level_2=sortobj.category2;
+	var class_level_3=sortobj.category3;
+	var button_noselect="不选择";
+
+function getCidValue()
+{
+	var _cl1 = document.askform.ClassLevel1;
+	var _cl2 = document.askform.ClassLevel2;
+	var _cl3 = document.askform.ClassLevel3;
+	var _cid = document.askform.cid;
+	if(_cl1.value!=0) _cid.value = _cl1.value;
+	if(_cl2.value!=0) _cid.value = _cl2.value;
+	if(_cl3.value!=0) _cid.value = _cl3.value;
+}
+function FillClassLevel1(ClassLevel1)
+{
+    ClassLevel1.options[0] = new Option("aa", "0");
+    for(i=0; i<class_level_1.length; i++)
+    {
+        ClassLevel1.options[i] = new Option(class_level_1[i][1], class_level_1[i][0]);
+    }
+    ClassLevel1.options[{$question['cid1']}].selected = true;
+    ClassLevel1.length = i;
+}
+function FillClassLevel2(ClassLevel2, class_level_1_id)
+{
+    ClassLevel2.options[0] = new Option(button_noselect, "");
+    count = 1;
+    for(i=0; i<class_level_2.length; i++){
+    if(class_level_2[i][0].toString() == class_level_1_id) {
+            ClassLevel2.options[count] = new Option(class_level_2[i][2], class_level_2[i][1]);
+            count = count+1;}
+    }
+    ClassLevel2.options[0].selected = true;
+    ClassLevel2.length = count;
+}
+function FillClassLevel3(ClassLevel3, class_level_2_id)
+{
+    ClassLevel3.options[0] = new Option(button_noselect, "");
+    count = 1;
+    for(i=0; i<class_level_3.length; i++) {
+        if(class_level_3[i][0].toString() == class_level_2_id) {
+            ClassLevel3.options[count] = new Option(class_level_3[i][2], class_level_3[i][1]);
+            count = count+1;}
+    }
+    ClassLevel3.options[0].selected = true;
+    ClassLevel3.length = count;       
+}
+function ClassLevel2_onchange()
+{
+    getCidValue();
+    FillClassLevel3(g_ClassLevel3, g_ClassLevel2.value); 
+    if (g_ClassLevel3.length <= 1) {  
+     g_ClassLevel3.style.display = "none";
+	 document.getElementById("jiantou").style.display = "none";
+    }
+    else {
+     g_ClassLevel3.style.display = "";     
+	 document.getElementById("jiantou").style.display = "";	 
+    }       
+}
+ 
+function ClassLevel1_onchange()
+{
+    getCidValue();
+    FillClassLevel2(g_ClassLevel2, g_ClassLevel1.value);
+    ClassLevel2_onchange();
+	
+}
+function InitClassLevelList(ClassLevel1, ClassLevel2, ClassLevel3)
+{
+    g_ClassLevel1=ClassLevel1;
+    g_ClassLevel2=ClassLevel2;
+    g_ClassLevel3=ClassLevel3;
+    g_ClassLevel1.onchange = Function("ClassLevel1_onchange();");
+    g_ClassLevel2.onchange = Function("ClassLevel2_onchange();");
+    FillClassLevel1(g_ClassLevel1);
+    ClassLevel1_onchange();
+}
+InitClassLevelList(document.askform.ClassLevel1, document.askform.ClassLevel2, document.askform.ClassLevel3);
+
+var selected_id_list="0"
+var blank_pos = selected_id_list.indexOf(" ");
+var find_blank = true;
+if (blank_pos == -1) {
+    find_blank = false;
+    blank_pos = selected_id_list.length;
+}
+var id_str = selected_id_list.substr(0, blank_pos);
+g_ClassLevel1.value = id_str;
+ClassLevel1_onchange();
+
+if (find_blank == true) {
+    selected_id_list = selected_id_list.substr(blank_pos + 1,   selected_id_list.length - blank_pos - 1);
+    blank_pos = selected_id_list.indexOf(" ");
+    if (blank_pos == -1) {
+        find_blank = false;
+        blank_pos = selected_id_list.length;
+    }
+    id_str = selected_id_list.substr(0, blank_pos);
+    g_ClassLevel2.value = id_str;
+    ClassLevel2_onchange();
+
+    if (find_blank == true) {
+        selected_id_list = selected_id_list.substr(blank_pos + 1,  selected_id_list.length - blank_pos - 1);
+        blank_pos = selected_id_list.indexOf(" ");
+        if (blank_pos == -1) {
+            find_blank = false;
+            blank_pos = selected_id_list.length;
+        }
+        id_str = selected_id_list.substr(0, blank_pos);
+        g_ClassLevel3.value = id_str;
+    }
+}		
+</script>
+</html>

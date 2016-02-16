@@ -1,0 +1,34 @@
+<?php
+
+!defined('IN_TIPASK') && exit('Access Denied');
+
+class admin_tagcontrol extends base {
+
+    function admin_tagcontrol(& $get, & $post) {
+        $this->base($get, $post);
+        $this->load('tag');
+    }
+
+    function ondefault($msg = '') {
+        $msg && $message = $msg;
+        @$page = max(1, intval($this->get[2]));
+        $pagesize = $this->setting['list_default'];
+        $startindex = ($page - 1) * $pagesize;
+        $taglist = $_ENV['tag']->get_list($startindex, $pagesize);
+        $rownum = $_ENV['tag']->rownum();
+        $departstr = page($rownum, $pagesize, $page, "admin_tag/default");
+        include template('taglist', 'admin');
+    }
+
+    function ondelete() {
+        $msg = '';
+        if (isset($this->post['delete'])) {
+            $_ENV['tag']->remove_by_name($this->post['delete']);
+            $message = '±êÇ©„h³ý³É¹¦£¡';
+        }
+        $this->ondefault($message);
+    }
+
+}
+
+?>

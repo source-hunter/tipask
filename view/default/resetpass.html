@@ -1,0 +1,48 @@
+<!--{template header}-->
+<div class="nav-line"></div>
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <div class="modbox classifymod">
+            <div class="title">请重新设置您的密码</div>
+            <div class="loginform">
+                <form name="getpassform"  action="{url user/resetpass}" method="post">
+                    <input type="hidden" name="authstr" value="{$authstr}" />
+                    <div class="input-bar">
+                        <h2>新密码</h2>
+                        <input type="password" class="normal-input" id="password" name="password" />
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>再次输入</h2>
+                        <input type="password" class="normal-input" id="repassword" name="repassword" />
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>验证码</h2>
+                        <input type="text" class="code-input" id="code" name="code" onblur="check_code();"/><span id="codetip"></span>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="code-bar">
+                        <span class="verifycode"><img  src="{url user/code}" onclick="javascript:updatecode();" id="verifycode"></span><a class="changecode" href="javascript:updatecode();">&nbsp;看不清?</a>
+                    </div>                  
+                    <div class="clr"></div>
+                    <div class="auto-login">
+                        <input type="submit" value="提&nbsp;交" class="normal-button" name="submit" />
+                    </div>
+                </form>
+                <div class="clr"></div>
+            </div>
+        </div>
+    </div>
+    <div class="aside-right">
+        <div class="modbox">
+            <div class="rcontent mt15 clearfix">
+                <dl class="right-tips">
+                    <dd>忘记帐号？试试您的常用邮箱、用户名或手机号。</dd>
+                    <dd>如果还有问题请及时<a href="mailto:{$setting['admin_email']}" target="_blank">联系我们</a></dd>
+                </dl>
+            </div>
+        </div>		
+    </div>
+</div>
+<!--{template footer}-->

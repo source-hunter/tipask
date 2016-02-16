@@ -1,0 +1,38 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">我的消息<span class="flright"><input type="button" value="写消息" class="normal-button" onclick="javascript:document.location = '{url message/send}'"/></span></div>            
+            <div id="qa-tabcard">
+                <ul>
+                    <li<!--{if $regular=="message/inbox"}--> class="on"<!--{/if}-->><!--{if $regular=="message/inbox"}-->收件箱<!--{else}--><a href="{url message/inbox/personal}">收件箱</a><!--{/if}--></li>
+                    <li<!--{if $regular=="message/outbox"}--> class="on"<!--{/if}-->><!--{if $regular=="message/outbox"}-->发件箱<!--{else}--><a href="{url message/outbox}">发件箱</a><!--{/if}--></li>
+                </ul>
+            </div>
+            <ul class="q-tabmod mt10">
+                <!--{loop $messagelist $message}-->
+                <li id="msg{$message['id']}">
+                    <div class="avatar">
+                        <a href="{url user/space/$message['fromuid']}" title="supermustang" target="_blank" class="pic"><img alt="{$message['from']}" src="{$message['from_avatar']}" onmouseover="pop_user_on(this, '{$message[fromuid]}', 'text');"  onmouseout="pop_user_out();"/></a>
+                    </div>
+                    <div class="msgcontent  " >
+                        <h3>
+                            <input type='checkbox' value="{$message['id']}" name="messageid[]"/>
+                            <a href="{url user/score}">您</a> 对 <a href="{url user/score}">{$message['username']}</a> 说：
+                        </h3>
+                        <div>{$message['content']}</div>
+                        <div class="related">
+                            <div class="pv">{$message['format_time']}</div>
+                        </div>
+                    </div>
+                    <div class="clr"></div>
+                </li>
+                <!--{/loop}-->
+            </ul>
+            <div class="manage-box"><input type="checkbox" value="chkall" id="chkall" onclick="checkall('messageid[]');"/> 全选  <input type="button" value="删除" class="button_2" /></div>
+            <div class="pages">{$departstr}</div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

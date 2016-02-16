@@ -1,0 +1,98 @@
+<!--{template header,admin}-->
+<div style="width:100%; height:15px;color:#000;margin:0px 0px 10px;">
+  <div style="float:left;"><a href="index.php?admin_main/stat{$setting['seo_suffix']}" target="main"><b>控制面板首页</b></a>&nbsp;&raquo;&nbsp;邮件设置</div>
+</div>
+<!--{if isset($message)}-->
+<!--{eval $type=isset($type)?$type:'correctmsg'; }-->
+<table cellspacing="1" cellpadding="4" width="100%" align="center" class="tableborder">
+	<tr>
+		<td class="{$type}">{$message}</td>
+	</tr>
+</table>
+<!--{/if}-->
+		<form action="index.php?admin_setting/mail{$setting['seo_suffix']}" method="post">
+			<table cellspacing="1" cellpadding="4" width="100%" align="center" class="tableborder">
+				<tr class="header">
+					<td colspan="2">参数设置</td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>邮件来源地址:</b><br><span class="smalltxt">当发送邮件不指定邮件来源时，默认使用此地址作为邮件来源</span></td>
+					<td class="altbg2"><input type="text" value="{$setting['maildefault']}" name="maildefault" /></td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>邮件发送方式:</b><br><span class="smalltxt">通过 PHP 函数的 sendmail 发送(推荐此方式)</span></td>
+					<td class="altbg2">
+					<input class="radio" onclick="javascript:$('#hidden1').css('display','none');$('#hidden2').css('display','none');" type="radio"  {if 1==$setting['mailsend'] }checked{/if} value="1" name="mailsend"> 
+					通过 PHP 函数的 sendmail 发送(推荐此方式)<br />
+					<input class="radio" onclick="javascript:$('#hidden1').css('display','');javascript:$('#hidden2').css('display','');" type="radio" {if 2==$setting['mailsend'] }checked{/if} value="2"   name="mailsend"> 
+					通过 SOCKET 连接 SMTP 服务器发送(支持 ESMTP 验证)<br />
+					<input class="radio" onclick="javascript:$('#hidden1').css('display','');$('#hidden2').css('display','none');" type="radio" {if 3==$setting['mailsend'] }checked{/if} value="3"  name="mailsend"> 
+					通过 PHP 函数 SMTP 发送 Email(仅 Windows 主机下有效, 不支持 ESMTP 验证)
+					</td>
+				</tr>
+				<tbody id="hidden1" {if 1==$setting['mailsend'] } style="DISPLAY: none" {/if} >
+				<tr>
+					<td class="altbg1" width="45%"><b>SMTP 服务器:</b><br><span class="smalltxt">设置 SMTP 服务器的地址</span></td>
+					<td class="altbg2"><input type="text" value="{$setting['mailserver']}" name="mailserver" /></td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>SMTP 端口:</b><br><span class="smalltxt">设置 SMTP 服务器的端口，默认为 25</span></td>
+					<td class="altbg2"><input value="{$setting['mailport']}" name="mailport"></td>
+				</tr>
+				</tbody>
+				
+				<tbody id="hidden2" {if 1==$setting['mailsend'] || 3==$setting['mailsend'] } style="DISPLAY: none" {/if} >
+				<tr>
+					<td class="altbg1" width="45%"><b>SMTP 服务器要求身份验证:</b><br><span class="smalltxt">如果 SMTP 服务器要求身份验证才可以发信，请选择“是”</span></td>
+					<td class="altbg2">
+						<input class="radio" type="radio" {if 1==$setting['mailauth'] }checked{/if}  value="1" name="mailauth">是&nbsp;&nbsp;
+						<input class="radio" type="radio" {if 0==$setting['mailauth'] }checked{/if}  value="0" name="mailauth">否
+				    </td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>发信人邮件地址:</b><br><span class="smalltxt">如果需要验证, 必须为本服务器的邮件地址。邮件地址中如果要包含用户名，格式为“username&lt;user@domain.com&gt;”</span></td>
+					<td class="altbg2"><input type="text" value="{$setting['mailfrom']}" name="mailfrom" /></td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>SMTP 身份验证用户名:</b><br><span class="smalltxt">SMTP的身份验证用户名</span></td>
+					<td class="altbg2"><input type="text" value="{$setting['mailauth_username']}" name="mailauth_username"></td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>SMTP 身份验证密码:</b><br><span class="smalltxt">SMTP的身份验证密码</span></td>
+					<td class="altbg2"><input type="text" value="{$setting['mailauth_password']}" name="mailauth_password" /></td>
+				</tr>
+				</tbody>
+				<tr>
+					<td class="altbg1" width="45%"><b>邮件头的分隔符:</b><br><span class="smalltxt">请根据您邮件服务器的设置调整此参数</span></td>
+					<td class="altbg2">					
+						<input class="radio" type="radio" {if 1==$setting['maildelimiter'] }checked{/if} value="1" name="maildelimiter"> 
+						使用 CRLF 作为分隔符<br>					
+						<input class="radio" type="radio" {if 0==$setting['maildelimiter'] }checked{/if}  value="0" name="maildelimiter"> 
+						使用 LF 作为分隔符<br>					
+						<input class="radio" type="radio" {if 2==$setting['maildelimiter'] }checked{/if} value="2" name="maildelimiter"> 
+						使用 CR 作为分隔符
+					</td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>收件人地址中包含用户名:</b><br><span class="smalltxt">选择“是”将在收件人的邮件地址中包含论坛用户名</span></td>
+					<td class="altbg2">
+						<label><input class="radio" type="radio" {if 1==$setting['mailusername'] }checked{/if}  value="1" name="mailusername">是</label>&nbsp;&nbsp;&nbsp;
+						<label><input class="radio" type="radio" {if 0==$setting['mailusername'] }checked{/if}  value="0" name="mailusername">否</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="altbg1" width="45%"><b>屏蔽邮件发送中的全部错误提示:</b><br><span class="smalltxt">选择“是”将屏蔽邮件发送过程中的所有错误</span></td>
+					<td class="altbg2">
+						<label><input class="radio" type="radio" {if 1==$setting['mailsilent'] }checked{/if} value="1" name="mailsilent">是</label>&nbsp;&nbsp;&nbsp;
+						<label><input class="radio" type="radio" {if 0==$setting['mailsilent'] }checked{/if} value="0" name="mailsilent">否</label>
+					</td>
+				</tr>
+				
+				
+				
+			</table>
+			<br />
+			<center><input type="submit" class="button" name="submit" value="提 交"></center><br>
+		</form>
+<br />
+<!--{template footer,admin}-->

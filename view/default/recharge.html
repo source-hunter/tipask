@@ -1,0 +1,43 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">我要充值</div>
+            <div class="loginform">
+                <p>您当前的财富为：<font color="#FC6603">{$user['credit2']}</font>,目前财富充值汇率为<font color="green">[1元={$setting['recharge_rate']}财富值]</font></p>
+                <form  action="{url ebank/aliapytransfer}" method="post" onsubmit="return check_form();">
+                    <div class="input-bar">
+                        <h2>充值金额:</h2>
+                        <input id="money" name="money" class="credit_input" value="" />&nbsp;元
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>验证码</h2>
+                        <input type="text" class="code-input" id="code" name="code" onblur="check_code();"/><span id="codetip"></span>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="code-bar">
+                        <span class="verifycode"><img  src="{url user/code}" onclick="javascript:updatecode();" id="verifycode"></span><a class="changecode" href="javascript:updatecode();">&nbsp;看不清?</a>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="auto-login">
+                        <input type="submit" name="submit" class="normal-button" value="保&nbsp;存" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function check_form(){
+        var money_reg = /\d{1,4}/;
+        var money = $("#money").val();
+        if('' == money || !money_reg.test(money) || money>20000 ||  money<=0){
+            alert("输入充值金额不正确!充值金额必须为整数，且单次充值不超过20000元!");
+            return false;
+        }
+        return true;
+    }
+</script>
+<!--{template footer}-->

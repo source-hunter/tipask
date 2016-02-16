@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+{eval $user=$this->user; $setting=$this->setting;}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Tipask's Control Panel</title>
+<meta http-equiv="Content-Type" content="text/html; charset={TIPASK_CHARSET}">
+<link media="all" type="text/css" href="css/admin/admincp.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="append">
+</div>
+<div class="container">
+	<h3>纯静态初始化...</h3>
+	<div class="mainbox">
+	<br />
+	<h2>生成htm页面 [已完成<font color="Red">{$finish}</font>条数据]</h2><br />
+			<table class="datalist fixwidth" >
+				<tr>
+					<td><br />
+						<ul>
+						{if $question}
+							<li>读取问题 &nbsp;&nbsp;<font color="blue">“{$question['title']} ”</font></li><br />
+							<li>正在生成页面&nbsp;&nbsp;{$question['url']}...</li><br />
+						{else}
+							<li>qid ="$qid" 问题不存在忽略！'</li><br />
+						{/if}	
+						{if $qid==$maxqid}						
+							<li><font color="Green"><b>初始化完毕！</b></font></li>
+						{/if}
+						</ul>
+					</td>
+				</tr>
+			</table>
+			<br />
+			<div>
+				<table>
+					<tr><td>注意：<font color="Red">网速过慢会影响采集速度！</font></td></tr>
+				</table>
+			</div>				     
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+function redirect(){
+	window.location="index.php?admin_setting/htm/$minqid/$maxqid/{$nextqid}{$setting['seo_suffix']}";
+}
+var id = setTimeout('redirect();', 1000);
+{if $qid==$maxqid }
+clearTimeout(id);
+{/if}
+</script>
+</html>

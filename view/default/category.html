@@ -1,0 +1,117 @@
+<!--{template header}-->
+<!--{eval $adlist = $this->fromcache("adlist");}-->
+
+<div class="nav-line">
+    <a class="first" href="{url category/view/all}">全部分类</a>
+    <!--{loop $navlist $nav}-->
+    &gt; <a href="{url category/view/$nav['id']}">{$nav['name']}</a> 
+    <!--{/loop}-->
+    <!--{if $cid!='all'}-->&gt; <span>{$category['name']}</span><!--{/if}-->
+</div>
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <div class="modbox classifymod">
+            <div class="title mt10">
+                <!--{if $cid!='all'}-->
+                {$category['name']}
+                <!--{else}-->
+                全部分类
+                <!--{/if}-->
+            </div>
+            <ul class="classifymod-list clearfix">
+                <!--{loop $sublist $index $sub}-->
+                <!--{if $sub['id']==$cid}-->
+                <li>{eval echo cutstr($sub['name'],10,'');}<em>({$sub['questions']})</em></li>
+                <!--{else}-->
+                <li><a href="{url category/view/$sub['id']}">{eval echo cutstr($sub['name'],10,'');}</a><em>({$sub['questions']})</em></li>
+                <!--{/if}-->
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <!--广告位1-->
+        <!--{if (isset($adlist['category']['left1']) && trim($adlist['category']['left1']))}-->
+        <div style="margin-top:5px;">{$adlist['category']['left1']}</div>
+        <!--{/if}-->
+        <div id="mod-answer-list" class="mod-answer-list mt10">
+            <div class="hd">
+                <ul class="tab-card">
+                    <!--{if all==$status}--><li class="on"><span>全部问题</span></li><!--{else}--><li class="current_none"><a href="{url category/view/$cid/all}">全部问题</a></li><!--{/if}-->
+                    <!--{if 6==$status}--><li class="on">推荐问题</li><!--{else}--><li class="current_none"><a class="recommand" href="{url category/view/$cid/6}">推荐问题</a></li><!--{/if}-->
+                    <!--{if 4==$status}--><li class="on">悬赏问题</li><!--{else}--><li class="current_none"><a href="{url category/view/$cid/4}">悬赏问题</a></li><!--{/if}-->
+                    <!--{if 1==$status}--><li class="on"><font color="#ff6600">？</font>待解决</li><!--{else}--><li class="current_none"><a href="{url category/view/$cid/1}"><font color="#ff6600">？</font>待解决</a></li><!--{/if}-->
+                    <!--{if 2==$status}--><li class="on"><font color="#1bbf00">√ </font>已解决</li><!--{else}--><li class="current_none"><a href="{url category/view/$cid/2}"><font color="#1bbf00">√ </font>已解决</a></li><!--{/if}-->             
+                </ul>
+            </div>
+            <div class="bd">
+                <div class="cls-qa-table">
+                    <table>
+                        <tbody>
+                            <tr class=""><th class="s0">标题</th><th class="s1">回答/浏览</th><th class="s2">时间</th></tr>
+                            <!--{loop $questionlist $question}-->
+                            <tr>
+                                <td class="title">
+                                    <div class="tit-full">
+                                        <div class="wrap">
+                                            <span class="gold">                
+                                                <!--{if $question['price'] > 0}-->
+                                                <img src="{SITE_URL}css/default/gold.gif" />{$question['price']}
+                                                <!--{/if}-->
+                                            </span>
+                                            <a href="{url question/view/$question['id']}" target="_blank" title="{$question['title']}">{eval echo cutstr($question['title'],50);}</a>&nbsp;<span class="cate">[<a target="_blank" href="{url category/view/$question['cid']}" title="{$question['category_name']}" class="lei">{eval echo cutstr($question['category_name'],14,'');}</a>]</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{$question['answers']}/{$question['views']}</td>
+                                <td>{$question['format_time']}</td>
+                            </tr>
+                            <!--{/loop}-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pages">{$departstr}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="aside-right">
+        <!--{if $expertlist}-->
+        <div class="modbox mb10">
+            <div class="title">推荐专家</div>
+            <ul class="left-expert-list">
+                <!--{loop $expertlist $expert}-->
+                <li>
+                    <div class="pic"><a title="{$expert['name']}" target="_blank" href="{url user/space/$expert['uid']}"><img width="50" height="50" alt="{$expert['username']}" src="{$expert['avatar']}"  onmouseover="pop_user_on(this, '{$expert[uid]}', '');"  onmouseout="pop_user_out();"/></a></div>
+                    <h3><a title="{$expert['name']}" target="_blank" href="{url user/space/$expert['uid']}" onmouseover="pop_user_on(this, '{$expert[uid]}', 'text');"  onmouseout="pop_user_out();">{$expert['username']}</a></h3>
+                    <span>{$expert['answers']}回答</span>
+                    <span>{$expert['supports']}赞同</span>
+                    <input type="button" value="向TA求助" class="button_4" onclick="javascript:document.location = '{url question/add/$expert['uid']}'">
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <!--{/if}-->
+        <!--广告位2-->
+        <!--{if (isset($adlist['category']['right1']) && trim($adlist['category']['right1']))}-->
+        <div>{$adlist['category']['right1']}</div>
+        <!--{/if}-->
+        <!-- 关注问题排行榜 -->
+        <div class="modbox">
+            <div class="title">一周热点问题</div>
+            <ul class="right-list">
+                <!--{eval $attentionlist=$this->fromcache('attentionlist');}-->
+                <!--{loop $attentionlist $index $question}-->
+                <!--{eval $index++;}-->
+                <li>
+                    <!--{if $index<4}-->
+                    <em class="n1">{$index}</em>
+                    <!--{else}-->
+                    <em class="n2">{$index}</em>
+                    <!--{/if}-->
+                    <a  title="{$question['title']}" target="_blank" href="{url question/view/$question['id']}">{eval echo cutstr($question['title'],40,'');}</a>
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>	
+    </div>
+</div>
+<!--{template footer}-->

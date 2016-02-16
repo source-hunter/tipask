@@ -1,0 +1,60 @@
+<!--{template header}-->
+<!--{eval $adlist = $this->fromcache("adlist");}-->
+<div class="nav-line"><a class="first" href="{SITE_URL}">{$setting['site_name']}</a> &gt; <span>活跃用户</span></div>
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <!--广告位1-->
+        <!--{if (isset($adlist['common']['left1']) && trim($adlist['common']['left1']))}-->
+        <div>{$adlist['common']['left1']}</div>
+        <!--{/if}-->
+        <div class="modbox">
+            <ul class="active-list clearfix">
+                <!--{loop $userlist $activeuser}-->
+                <li><a title="{$activeuser['username']}" target="_blank" href="{url user/space/$activeuser['uid']}"><img width="80" height="80" src="{$activeuser['avatar']}" onmouseout="pop_user_out();" onmouseover="pop_user_on(this, '{$activeuser['uid']}', 'image_active');"></a><a class="name" title="{$activeuser['username']}" target="_blank" href="{url user/space/$activeuser['uid']}">{$activeuser['username']}</a></li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <div class="pages">{$departstr}</div>   
+    </div>
+    <div class="aside-right">
+        <div class="modbox">
+            <div class="title">回答榜</div>
+            <ul style="display: block;" id="alltop" class="right-list">
+                <!--{loop $answertop $topuser}-->
+                <!--{eval $index++;}-->
+                <li>
+                    <!--{if $index<4}-->
+                    <em class="n1">{$index}</em>
+                    <!--{else}-->
+                    <em class="n2">{$index}</em>
+                    <!--{/if}-->
+                    <a onmouseout="pop_user_out();" onmouseover="pop_user_on(this, '{$topuser['uid']}', 'text');" target="_blank" href="{url user/space/$topuser['uid']}">{$topuser['username']}</a>
+                    <span class="credit">{$topuser['answers']}</span>
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <!--广告位2-->
+        <!--{if (isset($adlist['common']['right1']) && trim($adlist['common']['right1']))}-->
+        <div style="margin-top:5px;">{$adlist['common']['right1']}</div>
+        <!--{/if}-->
+        <div class="modbox mt10">
+            <div class="title">一周热点问题</div>
+            <ul class="right-list">
+                <!--{eval $attentionlist=$this->fromcache('attentionlist');}-->
+                <!--{loop $attentionlist $index $question}-->
+                <!--{eval $index++;}-->
+                <li>
+                    <!--{if $index<4}-->
+                    <em class="n1">{$index}</em>
+                    <!--{else}-->
+                    <em class="n2">{$index}</em>
+                    <!--{/if}-->
+                    <a  title="{$question['title']}" target="_blank" href="{url question/view/$question['id']}">{eval echo cutstr($question['title'],40,'');}</a>
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

@@ -1,0 +1,67 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <form name="msgform" {if $type=='system'}action="{url message/remove}"{else}action="{url message/removedialog}"{/if} method="POST" onsubmit="javascript:if (!confirm('确定删除所选消息全部内容?')) return false;">
+              <div class="my-answerbox">
+                <div class="title">我的消息<span class="flright"><input type="button" value="写消息" class="normal-button" onclick="javascript:document.location = '{url message/send}'"/></span></div>            
+                <div id="qa-tabcard">
+                    <ul>
+                        <li<!--{if $regular=="message/personal"}--> class="on"<!--{/if}-->><!--{if $regular=="message/personal"}-->私人消息<!--{else}--><a href="{url message/personal}">私人消息</a><!--{/if}--></li>
+                        <li<!--{if $regular=="message/system"}--> class="on"<!--{/if}-->><!--{if $regular=="message/system"}-->系统消息<!--{else}--><a href="{url message/system}">系统消息</a><!--{/if}--></li>
+                    </ul>
+                </div>
+                <ul class="q-tabmod mt10">
+                    <!--{loop $messagelist $message}-->
+                    <li id="msg{$message['id']}" {if $message['new']}class="new"{/if}>
+                        <!--{if $message['fromuid']}-->
+                        <div class="avatar">
+                            <a href="{url user/space/$message['fromuid']}" title="supermustang" target="_blank" class="pic"><img alt="{$message['from']}" src="{$message['from_avatar']}" /></a>
+                        </div>
+                        <!--{/if}-->
+                        <div class="msgcontent">
+                            <h3>
+                                <!--{if $message['fromuid']==0}-->
+                                <input type='checkbox' value="{$message['id']}" name="messageid[inbox][]"/>
+                                {$message['subject']}
+                                <!--{else}-->
+                                <input type='checkbox' value="{$message['fromuid']}" name="message_author[]"/>
+                                <a href="{url user/space/$message['fromuid']}">{$message['from']}</a> 对 <a href="{url user/score}">您</a> 说：
+                                {$message['subject']}
+                                <!--{/if}-->
+                            </h3>
+                            <!--{if $type!='system'}-->
+                            <div class="detail" onclick="javascript:document.location = '{url message/view/$type/$message[fromuid]}';">{eval echo cutstr($message['content'],300,'')}</div>
+                            <!--{else}-->
+                            <div class="detail">{$message['content']}</div>
+                            <!--{/if}-->
+                            <div class="related">
+                                <div class="pv">{$message['format_time']}</div>
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                    </li>
+                    <!--{/loop}-->
+                </ul>
+                <div class="q-tabmod mt10">                    
+                    <input type="checkbox" value="chkall" id="chkall" onclick="checkall('message');"/> 全选  <input type="submit" value="删除" name="submit" class="button_2" />
+                    <div class="pages flright">{$departstr}</div>
+                    <div class="clearfix"></div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>
+<!--{if $type=='personal'}-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".q-tabmod li").hover(function() {
+            $(this).addClass("li-hover");
+        }, function() {
+            $(this).removeClass("li-hover");
+        });
+    });
+</script>
+<!--{/if}-->
+<!--{template footer}-->

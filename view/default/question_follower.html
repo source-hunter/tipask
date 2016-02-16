@@ -1,0 +1,34 @@
+<!--{template header}-->
+<div class="nav-line"><a class="first" href="{SITE_URL}">{$setting['site_name']}</a> &gt; <a href="{url question/view/$question['id']}">{$question['title']}</a> &gt; <span>关注者</span></div>
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <div class="modbox">
+            <ul class="active-list clearfix">
+                <!--{loop $followerlist $follower}-->
+                <li><a title="{$follower['username']}" target="_blank" href="{url user/space/$follower['followerid']}"><img width="80" height="80" src="{$follower['avatar']}" onmouseout="pop_user_out();" onmouseover="pop_user_on(this, '{$follower['followerid']}', 'image_active');"></a><a class="name" title="{$follower['follower']}" target="_blank" href="{url user/space/$follower['followerid']}">{$follower['follower']}</a></li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <div class="pages">{$departstr}</div>   
+    </div>
+    <div class="aside-right">
+        <div class="modbox">
+            <div class="title">一周热点问题</div>
+            <ul class="right-list">
+                <!--{eval $attentionlist=$this->fromcache('attentionlist');}-->
+                <!--{loop $attentionlist $index $question}-->
+                <!--{eval $index++;}-->
+                <li>
+                    <!--{if $index<4}-->
+                    <em class="n1">{$index}</em>
+                    <!--{else}-->
+                    <em class="n2">{$index}</em>
+                    <!--{/if}-->
+                    <a  title="{$question['title']}" target="_blank" href="{url question/view/$question['id']}">{eval echo cutstr($question['title'],40,'');}</a>
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

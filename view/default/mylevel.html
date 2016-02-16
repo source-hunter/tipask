@@ -1,0 +1,32 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">我的等级</div>
+            <div class="table_list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="150">等级</th>
+                            <th width="150">头衔</th>
+                            <th width="200">经验值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--{loop $usergroup $group}-->
+                        <!--{if $group['grouptype']==2}-->
+                        <tr {if $group['groupid']==$user['groupid']}style="background-color:#F2E4A4;"{/if}>
+                            <td><span class="user-level">LV{$group['level']}{if $group['groupid']==$user['groupid']}（我在这里）{/if}</span></td>
+                            <td>{$group['grouptitle']}</td>
+                            <td>{$group['creditslower']} - {$group['creditshigher']}</td>
+                        </tr>
+                        <!--{/if}-->
+                        <!--{/loop}-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

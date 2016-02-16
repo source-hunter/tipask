@@ -1,0 +1,40 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">为我推荐的问题</div>
+            <div class="bd">
+                <div class="cls-qa-table">
+                    <table>
+                        <tbody>                            
+                            <tr><th class="s0">标题</th><th class="s1">回答/浏览</th><th class="s2">时间</th></tr>
+                            <!--{if $questionlist}-->
+                            <!--{loop $questionlist $question}-->
+                            <tr>
+                                <td class="title">
+                                    <div class="tit-full">
+                                        <div class="wrap">
+                                            <!--{if $question['price'] > 0}-->
+                                            <span class="gold"><img src="{SITE_URL}css/default/gold.gif">$question['price']</span>
+                                            <!--{/if}-->
+                                            <a href="{url question/view/$question['id']}" target="_blank" title="{$question['title']}">{eval echo cutstr($question['title'],54)}</a>
+                                            <a title="{$question['category_name']}" href="{url category/view/$question['cid']}" class="type" target="_blank">[{$question['category_name']}]</a>                                        </div>
+                                    </div>
+                                </td>
+                                <td>{$question['answers']}/{$question['views']}</td>
+                                <td>{$question['format_time']}</td>
+                            </tr>                   
+                            <!--{/loop}-->
+                            <!--{else}-->
+                            <tr><td colspan="3"><p>亲，快设置下擅长领域吧，设置后可根据您的兴趣爱好为您推荐合适的问题!<br /><a href="{url user/mycategory}">点击设置擅长领域</a> </p></td></tr>
+                            <!--{/if}-->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pages">{$departstr}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

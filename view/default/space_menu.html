@@ -1,0 +1,26 @@
+    <div class="user-aside">
+        <div class="usermenu">
+            <div class="userbox clearfix">
+                <a class="pic" title="{$member['username']}" href="{url user/profile}"><img width="60" height="60" src="{$member['avatar']}" alt="{$member['username']}"></a>
+                <h3>{$member['username']}</h3>
+                <span>{$member['grouptitle']}</span>
+            </div>
+            <ul class="menu clearfix">
+                <li><a href="{url user/space_ask/$member['uid']}">提问数</a>{$member['questions']}</li>
+                <li><a href="{url user/space_answer/$member['uid']}">回答数</a>{$member['answers']}</li>
+                <li><a href="#">赞同</a>{$member['supports']}</li>
+            </ul>
+            <ul class="user-nav">
+                <li<!--{if $regular=="user/space"}--> class="on"<!--{/if}-->><!--{if $regular=="user/space"}-->TA的首页<!--{else}--><a href="{url user/space/$member['uid']}">TA的首页</a><!--{/if}--></li>
+                <li<!--{if $regular=="user/space_ask"}--> class="on"<!--{/if}-->><!--{if $regular=="user/space_ask"}-->TA的提问<!--{else}--><a href="{url user/space_ask/$member['uid']}">TA的提问</a><!--{/if}--></li>
+                <li<!--{if $regular=="user/space_answer"}--> class="on"<!--{/if}-->><!--{if $regular=="user/space_answer"}-->TA的回答<!--{else}--><a href="{url user/space_answer/$member['uid']}">TA的回答</a><!--{/if}--></li>
+            </ul>
+        </div>
+    </div>
+    <script type='text/javascript'>
+        $(function() {
+            $(".userprogress").progressbar({
+                value: 70
+            });
+        });
+    </script>

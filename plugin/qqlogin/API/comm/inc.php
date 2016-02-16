@@ -1,0 +1,2 @@
+<?php die('forbidden'); ?>
+{"appid":"100231420","appkey":"9b3fbddc0e4bb28032626d05c1a2db98","callback":"http://localhost/tipask2.5/tipask-phpask/plugin/qqlogin/callback.php","scope":"get_user_info","errorReport":"true","storageType":"file"}

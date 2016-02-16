@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+{eval $user=$this->user; $setting=$this->setting;}
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Tipask's Control Panel</title>
+        <meta http-equiv="Content-Type" content="text/html; charset={TIPASK_CHARSET}">
+        <style type="text/css">
+            BODY {
+                BACKGROUND: url(bg_repx_h.gif) #f2f9fd no-repeat right top; FONT: 12px "Lucida Grande", Verdana, Lucida, Helvetica, Arial,sans-serif; WIDTH: 159px; COLOR: #666;	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+            }
+            A {
+                COLOR: #2366a8; TEXT-DECORATION: none
+            }
+            A:hover {
+                TEXT-DECORATION: underline
+            }
+            UL {
+                LIST-STYLE-TYPE: none; POSITION: absolute;
+            }
+            LI {
+                FONT-WEIGHT: 700; FONT-SIZE: 12px; MARGIN: 1px 0px; OVERFLOW: hidden; HEIGHT: 24px
+            }
+            LI A {
+                BORDER-RIGHT: #f2f9fd 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #f2f9fd 1px solid; DISPLAY: block; BACKGROUND: url(bg_repno.gif) no-repeat 10px -40px; PADDING-BOTTOM: 2px; BORDER-LEFT: #f2f9fd 1px solid; COLOR: #666; MARGIN-RIGHT: 2px; PADDING-TOP: 4px; BORDER-BOTTOM: #f2f9fd 1px solid
+            }
+            LI A:hover {
+                BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #b5cfd9 1px solid; BACKGROUND: #fff; BORDER-LEFT: #b5cfd9 1px solid; MARGIN-RIGHT: 0px; BORDER-BOTTOM: #b5cfd9 1px solid; TEXT-DECORATION: none
+            }
+            LI A.tabon {
+                BORDER-RIGHT: #fff 1px solid; BORDER-TOP: #b5cfd9 1px solid; BACKGROUND: url(bg_repy.gif) #fff repeat-y; BORDER-LEFT: #b5cfd9 1px solid; COLOR: #2366a8; MARGIN-RIGHT: 0px; BORDER-BOTTOM: #b5cfd9 1px solid; TEXT-DECORATION: none
+            }
+            .footer {
+                PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 10px; Z-INDEX: 10; RIGHT: 13px; BACKGROUND: url(bg_repx.gif) repeat-x 0px -199px; PADDING-BOTTOM: 5px; BOTTOM: 0px; LINE-HEIGHT: 150%; PADDING-TOP: 5px; FONT-FAMILY: Arial, sans-serif; POSITION: absolute
+            }
+        </style>
+        <link type="text/css" href="js/jqueryui/jqueryui.css" rel="stylesheet" />
+        <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $("#accordion").accordion({ header: "h2" });
+            });
+        </script>
+
+    </head>
+
+    <body>
+
+        <div id="accordion">
+            <h2><a href="#">初级设置</a></h2>
+            <ul>
+                <li><a href="index.php?admin_setting/base{$setting['seo_suffix']}" target="main">站点设置</a> </li>
+                <li><a href="index.php?admin_setting/time{$setting['seo_suffix']}" target="main">时间设置</a> </li>
+                <li><a href="index.php?admin_setting/list{$setting['seo_suffix']}" target="main">首页设置</a> </li>
+                <li><a href="index.php?admin_setting/register{$setting['seo_suffix']}" target="main">注册设置</a> </li>
+                <li><a href="index.php?admin_nav{$setting['seo_suffix']}" target="main">导航管理</a> </li>
+                <li><a href="index.php?admin_link{$setting['seo_suffix']}" target="main">友情链接</a> </li>
+            </ul>
+            
+            <h2><a href="#">高级设置</a></h2>
+            <ul>
+                <li><a href="index.php?admin_setting/mail{$setting['seo_suffix']}" target="main">邮件设置</a> </li>
+                <li><a href="index.php?admin_setting/msgtpl{$setting['seo_suffix']}" target="main">消息模板</a> </li>
+                <li><a href="index.php?admin_setting/credit{$setting['seo_suffix']}" target="main">积分设置</a> </li>
+                <li><a href="index.php?admin_setting/seo{$setting['seo_suffix']}" target="main">seo设置</a> </li>
+                <li><a href="index.php?admin_setting/stopcopy{$setting['seo_suffix']}" target="main">防采集设置</a> </li>
+                <li><a href="index.php?admin_editor/setting{$setting['seo_suffix']}" target="main">编辑器设置</a> </li>
+            </ul>
+            
+            <h2><a href="#">内容管理</a></h2>
+            <ul>
+                <li><a href="index.php?admin_question{$setting['seo_suffix']}" target="main">问答管理</a> </li>
+                <li><a href="index.php?admin_category{$setting['seo_suffix']}" target="main">分类管理</a></li>
+                <li><a href="index.php?admin_word{$setting['seo_suffix']}" target="main">词语过滤</a></li>
+                <li><a href="index.php?admin_inform{$setting['seo_suffix']}" target="main">举报管理</a></li>
+                <li><a href="index.php?admin_note{$setting['seo_suffix']}" target="main">公告管理</a></li>
+                <!--<li><a href="index.php?admin_ad{$setting['seo_suffix']}" target="main">广告管理</a></li>-->
+                <li><a href="index.php?admin_gift{$setting['seo_suffix']}" target="main">礼品商店</a></li>
+            </ul>
+            
+            <h2><a href="#">用户权限</a></h2>
+            <ul>
+                <li><a href="index.php?admin_user{$setting['seo_suffix']}" target="main">用户管理</a> </li>
+<!--                 <li><a href="index.php?admin_expert{$setting['seo_suffix']}" target="main">专家管理</a> </li>-->
+                <li><a href="index.php?admin_usergroup{$setting['seo_suffix']}" target="main">用户组权限</a></li>
+            </ul>
+            
+            <h2><a href="#">系统工具</a></h2>
+            <ul>
+                <li><a href="index.php?admin_setting/cache{$setting['seo_suffix']}" target="main">更新缓存</a> </li>
+                <li><a href="index.php?admin_datacall/default{$setting['seo_suffix']}" target="main">js数据调用</a> </li>
+                <li><a href="index.php?admin_db/backup{$setting['seo_suffix']}" target="main">数据库备份</a> </li>
+                <li><a href="index.php?admin_db/tablelist{$setting['seo_suffix']}" target="main">数据库优化</a> </li>
+                <li><a href="index.php?admin_db/sqlwindow{$setting['seo_suffix']}" target="main">SQL查询</a> </li>
+                <li><a href="index.php?admin_setting/counter{$setting['seo_suffix']}" target="main">更新问答统计</a> </li>
+            </ul>
+            
+            <h2><a href="#">系统整合</a></h2>
+            <ul>
+                <li><a href="index.php?admin_setting/passport{$setting['seo_suffix']}" target="main">通行证</a> </li>
+                <li><a href="index.php?admin_setting/ucenter{$setting['seo_suffix']}" target="main">UCenter</a> </li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            function cleartabon() {
+                if(lastmenu) {
+                    lastmenu.className = '';
+                }
+                for(var i = 0; i < menus.length; i++) {
+                    var menu = menus[i];
+                    if(menu.className == 'tabon') {
+                        lastmenu = menu;
+                    }
+                }
+            }
+            var menus = document.getElementById('accordion').getElementsByTagName('a');
+            var lastmenu = '';
+            for(var i = 0; i < menus.length; i++) {
+                var menu = menus[i];
+                menu.onclick = function() {
+                    setTimeout('cleartabon()', 1);
+                    this.className = 'tabon';
+                    this.blur();
+                }
+            }
+
+            cleartabon();
+        </script>
+
+    </body>
+
+</html>

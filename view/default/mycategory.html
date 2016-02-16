@@ -1,0 +1,153 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">我的设置</div>
+            <div id="qa-tabcard">
+                <ul>
+                    <li><a href="{url user/profile}">个人资料</a></li>
+                    <li><a href="{url user/uppass}">修改密码</a></li>
+                    <li><a href="{url user/editimg}">修改头像</a></li>
+                    <li class="on">我的设置</li>
+                </ul>
+            </div>
+            <div class="bd">
+                <div class="section">
+                    <h3 class="mt10">擅长分类</h3>
+                    <div class="con bg1">
+                        <div class="left fl">
+                            <div>为更好推荐您擅长的问题，请设置您的擅长分类</div>
+                            <div>
+                                <input type="hidden" value="" name="cids" id="cate_value" />
+                                <span class="y_text">您最多可添加3个分类</span>
+                            </div>
+                            <div><a {if count($user['category'])>=3}class="btn btn-1 btn-disabled-1"{else}class="btn btn-1"{/if} href="javascript:void(0)" id="changecategory"><span>添加擅长分类+</span></a></div>
+                        </div>
+                        <div class="right">
+                            您的擅长领域：
+                            <ul id="cate_view" class="tag">
+                                <!--{loop $user['category'] $category}-->
+                                <li class="item" id="{$category['cid']}">{$category['categoryname']}<a class="close"></a></li>
+                                <!--{/loop}-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clr"></div>
+                    <h3 class="mt10">外部账号绑定</h3>
+                    <div class="con">
+                        <div class="cls-qa-table">
+                            <table>
+                                <tbody>
+                                    <tr><th class="s0">登录方式</th><th class="s2">状态</th><th class="s3">管理</th></tr>
+                                    <!--{if $qqlogin}-->
+                                    <tr>
+                                        <td>QQ账号</td>
+                                        <td><font color="green">已绑定</font></td>
+                                        <td><a href="{url user/unchainauth/qq}">解除绑定</a></td>
+                                    </tr> 
+                                    <!--{else}-->
+                                    <tr>
+                                        <td>QQ账号</td>
+                                        <td>未绑定</td>
+                                        <td><a href="{SITE_URL}plugin/qqlogin/index.php">点击绑定</a></td>
+                                    </tr> 
+                                    <!--{/if}-->
+                                    <!--{if $sinalogin}-->
+                                    <tr>
+                                        <td>sina微博</td>
+                                        <td><font color="green">已绑定</font></td>
+                                        <td><a href="{url user/unchainauth/sina}">解除绑定</a></td>
+                                    </tr> 
+                                    <!--{else}-->
+                                    <tr>
+                                        <td>sina微博</td>
+                                        <td>未绑定</td>
+                                        <td><a href="{SITE_URL}plugin/sinalogin/index.php">点击绑定</a></td>
+                                    </tr> 
+                                    <!--{/if}-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="catedialog" title="修改分类" style="display: none">
+    <div id="dialogcate">
+        <form name="editcategoryForm" action="{url question/movecategory}" method="post">
+            <input type="hidden" name="qid" value="{$question['id']}" />
+            <input type="hidden" name="category" id="categoryid" />
+            <input type="hidden" name="selectcid1" id="selectcid1" value="{$question['cid1']}" />
+            <input type="hidden" name="selectcid2" id="selectcid2" value="{$question['cid2']}" />
+            <input type="hidden" name="selectcid3" id="selectcid3" value="{$question['cid3']}" />
+            <table border="0" cellpadding="0" cellspacing="0" width="460px">
+                <tr valign="top">
+                    <td width="125px">
+                        <select  id="category1" class="catselect" size="8" name="category1" ></select>
+                    </td>
+                    <td align="center" valign="middle" width="25px"><div style="display: none;" id="jiantou1">>></div></td>
+                    <td width="125px">                                        
+                        <select  id="category2"  class="catselect" size="8" name="category2" style="display:none"></select>                                        
+                    </td>
+                    <td align="center" valign="middle" width="25px"><div style="display: none;" id="jiantou2">>>&nbsp;</div></td>
+                    <td width="125px">
+                        <select id="category3"  class="catselect" size="8"  name="category3" style="display:none"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"><span><input  type="button" class="normal-button" value="确&nbsp;认" onclick="add_category();"/></span></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var category1 = {$categoryjs[category1]};
+            var category2 = {$categoryjs[category2]};
+            var category3 = {$categoryjs[category3]};
+    $(document).ready(function() {
+        initcategory(category1);
+        fillcategory(category2, $("#category1 option:selected").val(), "category2");
+        fillcategory(category3, $("#category2 option:selected").val(), "category3");
+        $("#cate_view .close").on("click", function() {
+            var cid = $(this).parent().attr("id");
+            $.post("{SITE_URL}index.php?user/ajaxdeletecategory", {cid: cid});
+            $(this).parent().remove();
+            if ($('#cate_view li').size() < 3) {
+                $("#changecategory").removeClass("btn-disabled-1");
+            }
+        });
+    });
+    function add_category() {
+        var selected_category1 = $("#category1 option:selected");
+        var selected_category2 = $("#category2 option:selected");
+        var selected_category3 = $("#category3 option:selected");
+        if ($('#cate_view li').size() >= 3) {
+            $("#catedialog").dialog("close");
+            return false;
+        }
+        var selected_cid = 0;
+        if (selected_category3.val() > 0) {
+            selected_cid = selected_category3.val();
+            $("#cate_view").append('<li class="item">' + selected_category3.html() + '<a class="close"></a></li>');
+        } else if (selected_category2.val() > 0) {
+            selected_cid = selected_category2.val();
+            $("#cate_view").append('<li class="item">' + selected_category2.html() + '<a class="close"></a></li>');
+        } else if (selected_category1.val() > 0) {
+            selected_cid = selected_category1.val();
+            $("#cate_view").append('<li class="item">' + selected_category1.html() + '<a class="close"></a></li>');
+        }
+        if (selected_cid > 0) {
+            $.post("{SITE_URL}index.php?user/ajaxcategory", {cid: selected_cid});
+        }
+        if ($('#cate_view li').size() >= 3) {
+            $("#changecategory").addClass("btn-disabled-1");
+        }
+        $("#catedialog").dialog("close");
+    }
+</script>
+<!--{template footer}-->

@@ -1,0 +1,59 @@
+<!--{template header,admin}-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#list").sortable({
+            update: function(){
+                var reorderid="";
+                var numValue=$("input[name='order[]']");
+                for(var i=0;i<numValue.length;i++){
+                    reorderid+=$(numValue[i]).val()+",";
+                }
+                var hiddentid=$("input[name='hiddentid']").val();
+                $.post("index.php?admin_topic/reorder{$setting['seo_suffix']}",{order:reorderid});
+            }
+        });
+    });
+</script>
+<div style="width:100%; height:15px;color:#000;margin:0px 0px 10px;">
+    <div style="float:left;"><a href="index.php?admin_main/stat{$setting['seo_suffix']}" target="main"><b>控制面板首页</b></a>&nbsp;&raquo;&nbsp;专题管理</div>
+</div>
+<!--{if $message}-->
+<table cellspacing="1" cellpadding="4" width="100%" align="center" class="tableborder">
+    <tr>
+        <td class="{$type}">{$message}</td>
+    </tr>
+</table>
+<!--{/if}-->
+<table width="100%" cellspacing="1" cellpadding="4" align="center" class="tableborder">
+    <tbody><tr class="header"><td>专题列表&nbsp;&nbsp;&nbsp;<input type="button" style="cursor:pointer" onclick="document.location.href='index.php?admin_topic/add{$setting['seo_suffix']}'" value="添加新专题" /></td></tr>
+        <tr class="altbg1"><td>专题的排序可以通过鼠标拖动来改变，当鼠标在某一专题上面时，按住左键即可上下移动。</td></tr>
+    </tbody></table>
+<form name="answerlist" onsubmit="return confirm('确定删除?');" action="index.php?admin_topic/remove{$setting['seo_suffix']}" method="post">
+    <table cellspacing="1" cellpadding="4" width="100%" align="center" style="border: 0 none !important; border-collapse: separate !important;empty-cells: show;margin-bottom: 0px;">
+        <tr class="header" align="center">
+            <td width="10%"><input class="checkbox" value="chkall" id="chkall" onclick="checkall('tid[]')" type="checkbox" name="chkall"><label for="chkall">删除</label></td>
+            <td  width="10%">专题图片</td>
+            <td width="20%">专题名称</td>
+            <td  width="20%">专题描述</td>
+            <td  width="10%">编辑</td>
+        </tr>
+    </table>
+    <ul id="list" style="cursor: pointer;width:100%;float: right;" >
+        <!--{loop $topiclist $topic}-->
+        <li style="list-style:none;">
+            <table  id="table1" cellspacing="1" cellpadding="4" width="100%" align="center" style="border: 0 none !important; border-collapse: separate !important;empty-cells: show;margin-bottom: 0px;"> 
+                <tr align="center" class="smalltxt">
+                    <td width="10%" class="altbg2"><input class="checkbox" type="checkbox" value="{$topic['id']}" name="tid[]"></td>
+                    <td width="10%" class="altbg2" align="center"><img src="{SITE_URL}{$topic['image']}" width="50px;" height="50px;"</td>
+                    <td width="20%" class="altbg2"><input name="order[]" type="hidden" value="{$topic['id']}"/><strong>{$topic['title']}</strong></td>
+                    <td width="20%" class="altbg2" align="center">{$topic['describtion']}</td>
+                    <td width="10%" class="altbg2" align="center"><img src="{SITE_URL}css/admin/edit.png" style="cursor:pointer" onclick="document.location.href='index.php?admin_topic/edit/$topic['id']{$setting['seo_suffix']}'"></td>
+                </tr>
+            </table>
+        </li>
+        <!--{/loop}-->
+    </ul>
+    <input class="button" tabindex="3" type="submit" value=" 提 交 " name="submit">
+</form>
+<br>
+<!--{template footer,admin}-->

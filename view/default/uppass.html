@@ -1,0 +1,49 @@
+<!--{template header}-->
+<div class="wrapper mt10 clearfix">
+    <!--{template user_menu}-->
+    <div class="user-content">
+        <div class="my-answerbox">
+            <div class="title">修改密码</div>
+            <div id="qa-tabcard">
+                <ul>
+                    <li><a href="{url user/profile}">个人资料</a></li>
+                    <li  class="on">修改密码</li>
+                    <li><a href="{url user/editimg}">修改头像</a></li>
+                    <li><a href="{url user/mycategory}">我的设置</a></li>
+                </ul>
+            </div>
+            <div class="loginform">                
+                <form  action="{url user/uppass}" method="post">
+                    <div class="input-bar">                        
+                        <h2>当前密码:</h2>
+                        <input type="password" id="oldpwd" name="oldpwd" class="normal-input" value="" />
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>新密码:</h2>
+                        <input type="password" id="newpwd"  name="newpwd" class="normal-input" value="" />
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>确认密码:</h2>
+                        <input type="password" id="confirmpwd"  name="confirmpwd" class="normal-input" value="" />
+                    </div>
+                    <div class="clr"></div>
+                    <div class="input-bar">
+                        <h2>验证码</h2>
+                        <input type="text" class="code-input" id="code" name="code" onblur="check_code();"/><span id="codetip"></span>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="code-bar">
+                        <span class="verifycode"><img  src="{url user/code}" onclick="javascript:updatecode();" id="verifycode"></span><a class="changecode" href="javascript:updatecode();">&nbsp;看不清?</a>
+                    </div>
+                    <div class="clr"></div>
+                    <div class="auto-login">
+                        <input type="submit" name="submit" class="normal-button" value="保&nbsp;存" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{template footer}-->

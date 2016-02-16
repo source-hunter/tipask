@@ -1,0 +1,450 @@
+<!--{template header}-->
+<!--{eval $adlist = $this->fromcache("adlist");}-->
+<script type="text/javascript" src="{SITE_URL}js/editor/ueditor.config.js"></script> 
+<script type="text/javascript" src="{SITE_URL}js/editor/ueditor.all.js"></script> 
+<div class="nav-line">
+    <a class="first" href="{url category/view/all}">全部分类</a>
+    <!--{loop $navlist $nav}-->
+    &gt; <a href="{url category/view/$nav['id']}">{$nav['name']}</a> 
+    <!--{/loop}-->
+</div>
+<div class="wrapper clearfix">
+    <div class="content-left">
+        <div class="questionbox">
+            <div class="title pd40">
+                <span class="ico ico-closed"></span>
+                <h1>{$question['title']}</h1>
+                <div class="same-q-mod">
+                    <!--{if $is_followed}-->
+                    <input type="button" class="button_followed" id="attenttoquestion" value="取消关注" onclick="attentto_question({$question['id']})"/>
+                    <!--{else}-->
+                    <input type="button" class="button_attention" id="attenttoquestion" value="关注" onclick="attentto_question({$question['id']})"/>
+                    <!--{/if}-->
+                </div>
+            </div>
+            <div class="tags">
+                <!--{loop $taglist $tag}-->
+                <a target="_blank" title="$tag" href="{url question/search/tag:$tag}">{$tag}</a>
+                <!--{/loop}-->
+            </div>
+            <div class="user-label">
+                <div class="user-label-info">
+                    <!--{if $question['price']}-->
+                    <span class="gold"><img src="{SITE_URL}css/default/gold.gif">{$question['price']}</span>
+                    <span class="span-line">|</span>                    
+                    <!--{/if}-->
+                    <!--{if $question['hidden']}-->
+                    <span>匿名</span>
+                    <!--{elseif $question['authorid']==0}-->
+                    <span><!--{if $question['ip']}-->{$question['ip']}<!--{else}-->游客<!--{/if}--></span>
+                    <!--{else}-->
+                    <span><a  href="{url user/space/$question['authorid']}" target="_blank" onmouseover="pop_user_on(this, '{$question[authorid]}', 'text');"  onmouseout="pop_user_out();">{$question['author']}</a></span>
+                    <!--{/if}-->
+                    <span class="span-line">|</span><span>浏览{$question['views']}次</span>
+                </div>
+                <div class="timeright"><span><a href="#">检举</a></span><span class="span-line">|</span><span><a href="{url favorite/add/$question['id']}">收藏</a></span><span class="span-line">|</span>{$question['format_time']}</div>                    
+            </div>
+            <div class="clr"></div>
+            <div class="description">{$question['description']}</div>
+            <div class="clr"></div>
+            <div class="mainbox mt10">
+                <ul>
+                    <!--{loop $supplylist $supply}-->
+                    <li><span class="time">问题补充 : {$supply['format_time']}</span>{$supply['content']}</li>
+                    <!--{/loop}-->
+                </ul>
+            </div>
+            <!--广告位1-->
+            <!--{if (isset($adlist['question_view']['inner1']) && trim($adlist['question_view']['inner1']))}-->
+            <div style="margin-top:5px;">{$adlist['question_view']['inner1']}</div>
+            <!--{/if}-->
+        </div>
+        <div class="share-content">{$setting['question_share']}</div>
+        <!--广告位2-->
+        <!--{if (isset($adlist['question_view']['left1']) && trim($adlist['question_view']['left1']))}-->
+        <div class="share-content">{$adlist['question_view']['left1']}</div>
+        <!--{/if}-->
+        <div id="customerList" class="net-answer mt10">
+            <div class="title">全部回答({$question['answers']})</div>
+            <ul class="net-answer-list">
+                <!--{loop $answerlist $index $answer}-->
+                <li id="comment_{$index}">
+                    <div class="mainBox">
+                        <div class="avatar">
+                            <div  class="avarta-img">
+                                <div class="avarta-name"><a target="_blank" href="{url user/space/$answer['authorid']}"><img width="50" height="50" alt="{$answer['author']}" src="{$answer['author_avartar']}" onmouseover="pop_user_on(this, '{$answer[authorid]}', 'img');"  onmouseout="pop_user_out();"></a></div>
+                            </div>
+                            <div class="avarta-name"><a target="_blank" title="{$answer['author']}" href="{url user/space/$answer['authorid']}" onmouseover="pop_user_on(this, '{$answer[authorid]}', 'text');"  onmouseout="pop_user_out();">{eval echo cutstr($answer['author'],7,'');}</a></div>                           
+                        </div>
+                        <div class="anscontent">
+                            {$answer['content']}
+                            <div class="appendcontent">
+                                <!--{loop $answer['appends'] $append}-->       
+                                <div class="appendbox">
+                                    <!--{if $append['authorid']==$answer['authorid']}-->
+                                    <h4 class="appendanswer">回答:<span class="time">{$append['format_time']}</span></h4>
+                                    <!--{else}-->
+                                    <h4 class="appendask">追问:<span class='time'>{$append['format_time']}</span></h4>
+                                    <!--{/if}-->
+                                    {$append['content']}                                    
+                                    <div class="clr"></div>
+                                </div>
+                                <!--{/loop}-->
+                            </div>
+                        </div>
+                        <div class="clr"></div>
+                        <div class="comment-box mt10">
+                            <div class="comments-hd">
+                                <div class="function" id="{$answer['id']}">
+                                    <span class="number"><a onclick="show_comment('{$answer['id']}');" href="javascript:void(0)">评论({$answer['comments']})</a></span>
+                                    <input type="button" class="button_agree" value="{$answer['supports']}" />                                
+                                </div>
+                                <span class="time">回答于 {$answer['time']}</span>
+                                <!--{if $user['grouptype']==1}-->
+                                <span class="admin"><a href="{url question/editanswer/$answer['id']}">编辑内容</a><span class="span-line">|</span><a href="javascript:void(0);" onclick="delete_answer('{$answer['id']}', '{$question['id']}')">删除</a></span>
+                                <!--{/if}-->
+                            </div>
+                            <div class="comments-mod" style="display: none;margin-left: 70px;" id="comment_{$answer['id']}">
+                                <ul class="comments-list">
+                                    <li class="loading"><img src='{SITE_URL}css/default/loading.gif' align='absmiddle' />&nbsp;加载中...</li>
+                                </ul>
+                            </div>
+                        </div>
+                </li>
+                <!--{/loop}-->
+            </ul>
+            <!--广告位3-->
+            <!--{if (isset($adlist['question_view']['left2']) && trim($adlist['question_view']['left2']))}-->
+            <div>{$adlist['question_view']['left2']}</div>
+            <!--{/if}-->
+        </div>
+        <div class="pages">{$departstr}</div>
+        <!--{if $solvelist}-->
+        <div class="module mt10">
+            <div class="title">相关已解决</div>
+            <ul class="list">
+                <!--{loop $solvelist $solve}-->
+                <li><span class="answer-number">{$solve['answers']}个回答</span><a title="{$solve['title']}" target="_blank"  href="{url question/view/$solve['id']}">{$solve['title']}</a></li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <!--{/if}-->
+        <!--广告位4-->
+        <!--{if (isset($adlist['question_view']['left3']) && trim($adlist['question_view']['left3']))}-->
+        <div style="margin-top:5px;">{$adlist['question_view']['left3']}</div>
+        <!--{/if}-->
+    </div>
+    <div class="aside-right">
+        <div class="question_followbox">
+            <div class="overview">
+                <a href="{url question/follow/$question['id']}"><strong>{$question['attentions']}</strong></a>人关注该问题
+            </div>
+            <div class="follower_list">
+                <!--{loop $followerlist $follower}-->
+                <a href="{url user/space/$follower['followerid']}" target="_blank"><img  src="{$follower['avatar']}" onmouseover="pop_user_on(this, '{$follower[followerid]}', 'image_follow');"  onmouseout="pop_user_out();"/></a>
+                <!--{/loop}-->
+            </div>
+        </div>
+        <!--{if 1==$user['grouptype'] && $user['uid']}-->
+        <div class="modbox mb10">
+            <div class="userinfo-box">
+                <div class="title">问题管理</div>
+                <div class="userinfo clearfix">
+                    <p class="control">
+                        <span><input type="button" class="button_4" value="编辑内容" onclick="javascript:document.location = '{url question/edit/$question[id]}'"/></span>
+                        <span><input type="button" class="button_4" value="修改标签" onclick="edittag();" /></span>
+                        <span><input type="button" class="button_4" value="移动分类" id="changecategory" /></span>
+                        <span><input type="button" class="button_4" value="设为待解决" id="changetonosolve"/></span>
+                        <span><input type="button" class="button_4" value="删除问题" id="delete_question"/></span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <!--{/if}-->
+        <!--{if $expertlist}-->
+        <div class="modbox mt10">
+            <div class="title">可能帮助到你的专家</div>
+            <ul class="left-expert-list">
+                <!--{loop $expertlist $expert}-->
+                <li>
+                    <div class="pic"><a title="{$expert['name']}" target="_blank" href="{url user/space/$expert['uid']}"><img width="50" height="50" alt="{$expert['username']}" src="{$expert['avatar']}"  onmouseover="pop_user_on(this, '{$expert[uid]}', '');"  onmouseout="pop_user_out();"/></a></div>
+                    <h3><a title="{$expert['name']}" target="_blank" href="{url user/space/$expert['uid']}" onmouseover="pop_user_on(this, '{$expert[uid]}', 'text');"  onmouseout="pop_user_out();">{$expert['username']}</a></h3>
+                    <span>{$expert['answers']}回答</span>
+                    <span>{$expert['supports']}赞同</span>
+                    <p><a href="{url question/add/$expert['uid']}" class="invite">邀请TA回答</a></p>
+                </li>
+                <!--{/loop}-->
+            </ul>
+        </div>
+        <!--{/if}-->
+        <!--广告位5-->
+        <!--{if (isset($adlist['question_view']['right1']) && trim($adlist['question_view']['right1']))}-->
+        <div>{$adlist['question_view']['right1']}</div>
+        <!--{/if}-->
+    </div>
+</div>
+<div id="catedialog" title="修改分类" style="display: none">
+    <div id="dialogcate">
+        <form name="editcategoryForm" action="{url question/movecategory}" method="post">
+            <input type="hidden" name="qid" value="{$question['id']}" />
+            <input type="hidden" name="category" id="categoryid" />
+            <input type="hidden" name="selectcid1" id="selectcid1" value="{$question['cid1']}" />
+            <input type="hidden" name="selectcid2" id="selectcid2" value="{$question['cid2']}" />
+            <input type="hidden" name="selectcid3" id="selectcid3" value="{$question['cid3']}" />
+            <table border="0" cellpadding="0" cellspacing="0" width="460px">
+                <tr valign="top">
+                    <td width="125px">
+                        <select  id="category1" class="catselect" size="8" name="category1" ></select>
+                    </td>
+                    <td align="center" valign="middle" width="25px"><div style="display: none;" id="jiantou1">>></div></td>
+                    <td width="125px">                                        
+                        <select  id="category2"  class="catselect" size="8" name="category2" style="display:none"></select>                                        
+                    </td>
+                    <td align="center" valign="middle" width="25px"><div style="display: none;" id="jiantou2">>>&nbsp;</div></td>
+                    <td width="125px">
+                        <select id="category3"  class="catselect" size="8"  name="category3" style="display:none"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"><span><input  type="button" class="normal-button" value="确&nbsp;认" onclick="change_category();"/></span></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="dialogadopt" title="采纳回答" style="display: none">
+    <form name="editanswerForm"  action="{url question/adopt}" method="post" >
+        <input type="hidden"  value="{$question['id']}" name="qid"/>
+        <input type="hidden" id="adopt_answer" value="0" name="aid"/>
+        <table border="0" cellpadding="0" cellspacing="0" width="450px">
+            <tr valign="top">
+                <td>向帮助了您的知道网友说句感谢的话吧!</td>
+            </tr>
+            <tr>            
+                <td>
+                    <div class="inputbox mt15">
+                        <textarea class="adopt_text" name="content">非常感谢!</textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" class="normal-button flright mt15" value="确&nbsp;认" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="dialog_tag" title="编辑标签" style="display: none">
+    <form name="edittagForm"  action="{url question/edittag}" method="post" >
+        <input type="hidden"  value="{$question['id']}" name="qid"/>
+        <input type="hidden" id="adopt_answer" value="0" name="aid"/>
+        <table border="0" cellpadding="0" cellspacing="0" width="470px">
+            <tr>            
+                <td>
+                    <div class="inputbox mt15">
+                        <input type="text" placeholder="多个标签请以空格隔开" class="tag-input" name="qtags" value="{eval echo implode(' ',$taglist)}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" class="normal-button flright mt15" value="确&nbsp;认" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="append_score" title="提高悬赏" style="display: none">
+    <form name="addscoreForm"  action="{url question/addscore}" method="post" >
+        <input type="hidden" value="{$question['id']}" name="qid">
+        <table border="0" cellpadding="0" cellspacing="0" width="450px">
+            <tr valign="top">
+                <td>提问期内，追加悬赏一次，可延长问题的有效期3天。悬赏越高，会吸引到越多的关注。</td>
+            </tr>
+            <tr>            
+                <td>
+                    <div class="inputbox mt15">
+                        追加悬赏:&nbsp;<select name="score" id="addscore" class="normal_select">
+                            <option value="5" selected="selected">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                        </select>&nbsp;分
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" class="normal-button flright mt15" value="确&nbsp;认" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="dialog_inform" title="我来检举" style="display: none">
+    <form name="edittagForm"  action="{url question/edittag}" method="post" >
+        <input type="hidden"  value="{$question['id']}" name="qid"/>
+        <input type="hidden" id="adopt_answer" value="0" name="aid"/>
+        <table border="0" cellpadding="0" cellspacing="0" width="470px">
+            <tr>            
+                <td>
+                    <div class="inputbox mt15">
+                        <input type="text"  class="tag-input" name="qtags" value="{eval echo implode(' ',$taglist)}"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" class="normal-button flright mt15" value="确&nbsp;认" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<link rel="stylesheet" href="{SITE_URL}js/lightbox/lightbox.css" />
+<link rel="stylesheet" href="{SITE_URL}js/editor/third-party/SyntaxHighlighter/shCoreDefault.css" />
+<script type="text/javascript" src="{SITE_URL}js/editor/third-party/SyntaxHighlighter/shCore.js"></script>
+<script type="text/javascript" src="{SITE_URL}js/lightbox/lightbox.js"></script>
+<script type="text/javascript">
+                                var category1 = {$categoryjs[category1]};
+                                var category2 = {$categoryjs[category2]};
+                                var category3 = {$categoryjs[category3]};
+                                var selectedcid = "{$question['cid1']},{$question['cid2']},{$question['cid2']}";
+                                $(document).ready(function() {
+                        initcategory(category1);
+                                fillcategory(category2, $("#category1 option:selected").val(), "category2");
+                                fillcategory(category3, $("#category2 option:selected").val(), "category3");
+                                //设置为待解决
+                                $("#changetonosolve").click(function() {
+                        document.location.href = "{url question/nosolve/$question['id']}";
+                        });
+                                //删除问题
+                                $("#delete_question").click(function() {
+                        if (confirm('确定删除问题？该操作不可返回！') === true) {
+                        document.location.href = "{url question/delete/$question['id']}";
+                        }
+                        });
+                                $(".anscontent img,.description img,.mainbox img,.qa-content img").each(function(i) {
+                        var img = $(this);
+                                $.ajax({
+                                type: "POST",
+                                        url: "{url index/ajaxchkimg}",
+                                        async: true,
+                                        data: "imgsrc=" + img.attr("src"),
+                                        success: function(status) {
+                                        if ('1' == status) {
+                                        img.wrap("<a href='" + img.attr("src") + "' title='" + img.attr("title") + "' data-lightbox='comment'></a>");
+                                        }
+                                        }
+                                });
+                        });
+                        });
+                                function show_comment(answerid) {
+                                if ($("#comment_" + answerid).css("display") === "none") {
+                                $("#comment_" + answerid + " .comments-list").load("{SITE_URL}" + query + "answer/ajaxviewcomment/" + answerid);
+                                        $("#comment_" + answerid).slideDown();
+                                } else {
+                                $("#comment_" + answerid).slideUp();
+                                }
+                                }
+
+                        function change_category() {
+                        var category1 = $("#category1 option:selected").val();
+                                var category2 = $("#category2 option:selected").val();
+                                var category3 = $("#category3 option:selected").val();
+                                if (category1 > 0) {
+                        $("#categoryid").val(category1);
+                        }
+                        if (category2 > 0) {
+                        $("#categoryid").val(category2);
+                        }
+                        if (category3 > 0) {
+                        $("#categoryid").val(category3);
+                        }
+                        $("#catedialog").dialog("close");
+                                $("form[name='editcategoryForm']").submit();
+                        }
+
+                        function adoptanswer(aid) {
+                        $("#dialogadopt").dialog({
+                        autoOpen: false,
+                                width: 480,
+                                modal: true,
+                                resizable: false
+                        });
+                                $("#adopt_answer").val(aid);
+                                $("#dialogadopt").dialog("open");
+                        }
+                        function edittag() {
+                        $("#dialog_tag").dialog({
+                        autoOpen: false,
+                                width: 500,
+                                modal: true,
+                                resizable: false
+                        });
+                                $("#dialog_tag").dialog("open");
+                        }
+
+                        //提高悬赏
+                        function append_score() {
+                        $("#append_score").dialog({
+                        autoOpen: false,
+                                width: 480,
+                                modal: true,
+                                resizable: false
+                        });
+                                $("#append_score").dialog("open");
+                        }
+                        function close_question() {
+                        if (confirm('确定关闭该问题?') === true) {
+                        document.location.href = "{url question/close/$question['id']}";
+                        }
+                        }
+
+                        //添加评论
+                        function addcomment(answerid) {
+                        var content = $("#comment_" + answerid + " input[name='content']").val();
+                                $.ajax({
+                                type: "POST",
+                                        url: "{url answer/addcomment}",
+                                        data: "content=" + content + "&answerid=" + answerid,
+                                        success: function(status) {
+                                        if (status == '1') {
+                                        $("#comment_" + answerid + " input[name='content']").val("");
+                                                $("#comment_" + answerid + " .comments-list").load("{SITE_URL}" + query + "answer/ajaxviewcomment/" + answerid);
+                                        }
+                                        }
+                                });
+                        }
+
+                        //删除评论
+                        function deletecomment(commentid, answerid) {
+                        if (!confirm("确认删除该评论?")) {
+                        return false;
+                        }
+                        $.ajax({
+                        type: "POST",
+                                url: "{url answer/deletecomment}",
+                                data: "commentid=" + commentid + "&answerid=" + answerid,
+                                success: function(status) {
+                                if (status == '1') {
+                                $("#comment_" + answerid + " .comments-list").load("{SITE_URL}" + query + "answer/ajaxviewcomment/" + answerid);
+                                }
+                                }
+                        });
+                        }
+                        //检举
+                        function inform(name, type) {
+                        var content = name + '的回答';
+                                if (type == 1) {
+                        content = name + '的提问';
+                        }
+
+                        $("#append_score").dialog({
+                        autoOpen: false,
+                                width: 480,
+                                modal: true,
+                                resizable: false
+                        });
+                                $("#append_score").dialog("open");
+                        }
+
+</script>
+<!--{template footer}-->
